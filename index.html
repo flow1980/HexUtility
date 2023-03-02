@@ -3,28 +3,41 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
-    <title>My test page</title>
+    <meta name="author" content="Florian Lengert" />
+    <meta name="description" content="Set of different tools to manipulate and convert Intel-HEX, Motorola S-RECORD and binary files 
+                                      as well as doing many other useful tasks (e.g. calculating checksums, merging files, etc.)." />
+    <title>Hex Utility</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <script src="scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
   </head>
   <body>
-    <h1>Mozilla is cool</h1>
-    <img src="images/firefox-icon.png" alt="The Firefox logo: a flaming fox surrounding the Earth.">
+    <nav id="nav-hex-tools">
+      <ul class="no-bullets">
+        <li><a href="app-hex2bin/hex2bin.html">Hex2Bin Converter</a></li>
+        <li><a href="app-hex-format-converter/hex-format-converter.html"></a>HEX Format Converter</a></li>
+        <li><a href="app-checksum-calculator/checksum-calculator.html"></a>HEX, S-RECORD or BIN Checksum Calculator</a></li>
+        <li><a href="app-remove-ecc/remove-ecc.html"></a>Remove ECC</a></li>
+        <li><a href="app-remove-flash-option-bytes/remove-flash-option-bytes.html"></a>Remove 'Flash Option Bytes'</a></li>
+        <li><a href="app-file-compression/file-compression.html"></a>File Compression</a></li>
+        <li><a href="app-file-decompression/file-decompression.html"></a>File Decompression</a></li>
+      </ul>
+    </nav>
+    <nav id="nav-s-record-tools">
+      <ul class="no-bullets">
+        <li><a href="app-srecord2bin/srecord2bin.html"></a>Srecord2Bin Converter</a></li>
+        <li><a href="app-hex2srecord/hex2srecord.html"></a>Hex2Srecord Converter</a></li>
+        <li><a href="app-srecord2hex/srecord2hex.html"></a>Srecord2Hex Converter</a></li>
+      </ul>
+    </nav>
+    <nav id="nav-other-tools">
+      <ul class="no-bullets">
+        <li><a href="app-files-merger/files-merger.html"></a>Files Merger (.hex files, .bin files, ...)</a></li>
+      </ul>
+    </nav>
 
-    <p>At Mozilla, we are a global community of</p>
-
-    <ul> <!-- changed to list in the tutorial -->
-      <li>technologists</li>
-      <li>thinkers</li>
-      <li>builders</li>
-    </ul>
-
-    <p>working together to keep the Internet alive and accessible, so people worldwide can be informed contributors and creators of the Web. We believe this act of human collaboration across an open platform is essential to individual growth and our collective future.</p>
-
-    <p>Read the <a href="https://www.mozilla.org/en-US/about/manifesto/" target="_blank">Mozilla Manifesto</a> to learn even more about the values and principles that guide the pursuit of our mission.</p>
- 
-    <button>Change user</button>
+    <!--button>Change user</button-->
     
-    <script src="scripts/main.js"></script>     
   </body>
 </html>
