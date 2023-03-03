@@ -15,7 +15,7 @@ html {
 
 ul.no-bullets {
   list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove padding */
+  padding: 0 3px; /* Remove padding */
   margin: 0; /* Remove margins */
 }
 
@@ -33,4 +33,6 @@ img {
 #nav-hex-tools, #nav-s-record-tools, #nav-other-tools {
   width: auto;
   border: 1px solid black;
+  margin: 10px;
+  background-color: darkgray;
 }
