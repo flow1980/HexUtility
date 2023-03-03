@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
-    <meta name="author" content="Florian Lengert" />
-    <meta name="description" content="Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file." />
+    <meta name="viewport" content="width=device-width" >
+    <meta name="author" content="Florian Lengert" >
+    <meta name="description" content="Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file." >
     <title>Hex Utility</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" />
-    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" >
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" >
+    <link rel="stylesheet" href="../styles/style.css" >
     <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
   </head>
   <body>
@@ -45,7 +45,22 @@
 
       <p>Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file.</p>
 
-      <!--button>Change user</button-->
+      <section id="hex2bin_input-hex">
+        <h3>Input file (.hex file):</h3>
+
+      </section>
+
+      <section id="hex2bin_address-ranges">
+        <h3>[OPTIONAL] Address Range(s) of the .hex file to be converted:</h3>
+
+      </section>
+
+      <section id="hex2bin_output-bin">
+        <h3>Output file (.bin file):</h3>
+        
+      </section>
+
+      <button id="hex2bin-start-conversion">Start Hex2Bin Conversion ...</button>
     </main>
     
     <footer>
