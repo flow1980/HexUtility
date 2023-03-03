@@ -6,21 +6,28 @@ html {
   /*background-color: #00539F;*/
 
   font-weight: normal;
-  font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high */
   font-family: 'Open Sans', sans-serif;
 }
 
 /*h1 {
 }*/
 
-ul.no-bullets {
+/*h3 {
+  font-size: 1.5rem;
+}*/
+
+.nav-no-bullets {
   list-style-type: none; /* Remove bullets */
   padding: 0 3px; /* Remove padding */
   margin: 0; /* Remove margins */
 }
 
-p, li {
-  font-size: 16px;
+li {
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+p {
   line-height: 2;
   letter-spacing: 1px;
 }
@@ -31,8 +38,7 @@ img {
 }
 
 #nav-hex-tools, #nav-s-record-tools, #nav-other-tools {
-  width: auto;
+  width: max-content;
   border: 1px solid black;
   margin: 10px;
-  background-color: darkgray;
 }

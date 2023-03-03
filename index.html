@@ -13,8 +13,12 @@
     <script src="scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
   </head>
   <body>
+    <header>
+      <h1>Hex Utility Suite</h1>
+    </header>
+
     <nav id="nav-hex-tools">
-      <ul class="no-bullets">
+      <ul class="nav-no-bullets">
         <li><a href="app-hex2bin/hex2bin.html">Hex2Bin Converter</a></li>
         <li><a href="app-hex-format-converter/hex-format-converter.html">HEX Format Converter</a></li>
         <li><a href="app-checksum-calculator/checksum-calculator.html">HEX, S-RECORD or BIN Checksum Calculator</a></li>
@@ -25,16 +29,20 @@
       </ul>
     </nav>
     <nav id="nav-s-record-tools">
-      <ul class="no-bullets">
+      <ul class="nav-no-bullets">
         <li><a href="app-srecord2bin/srecord2bin.html">Srecord2Bin Converter</a></li>
         <li><a href="app-hex2srecord/hex2srecord.html">Hex2Srecord Converter</a></li>
         <li><a href="app-srecord2hex/srecord2hex.html">Srecord2Hex Converter</a></li>
       </ul>
     </nav>
     <nav id="nav-other-tools">
-      <ul class="no-bullets">
+      <ul class="nav-no-bullets">
         <li><a href="app-files-merger/files-merger.html">Files Merger (.hex files, .bin files, ...)</a></li>
       </ul>
     </nav>
+
+    <footer>
+      <p>Florian Lengert, 2023</p>
+    </footer>  
   </body>
 </html>
