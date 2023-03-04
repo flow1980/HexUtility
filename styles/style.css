@@ -37,8 +37,22 @@ img {
   margin: 0 auto;
 }
 
-#nav-hex-tools, #nav-s-record-tools, #nav-other-tools {
+nav {
   width: max-content;
+  margin: 10px;
+}
+
+.outer {
+  width: max-content;
+}
+
+#nav-hex-tools, #nav-s-record-tools, #nav-other-tools {
+  width: calc(100%);
   border: 1px solid black;
   margin: 10px;
 }
+
+a:hover {
+  text-decoration: none;
+}
+
