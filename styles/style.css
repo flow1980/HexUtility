@@ -1,12 +1,46 @@
-html {
-  margin: 0 auto;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /*background-color: #00539F;*/
+/* Handle basic element styling */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
 
+html {
+  /*margin: 0 auto;*/
+  /*padding: 2rem;*/
+
+  /*font-size: 12px;*/
   font-weight: normal;
   font-family: 'Open Sans', sans-serif;
+
+  /*display: grid;
+  grid-template-columns: 1fr 1fr;*/
+  /*background-color: #00539F;*/
+  box-sizing: border-box;   /* Use the alternative box model */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;   /* Inherited from the html element */
+}
+
+.no-margin {
+  margin: 0;
+}
+
+/*body {
+  display: flex;
+}*/
+
+.content-area {
+  display: flex;
+  margin: 0 auto;
+}
+
+main {
+  margin-left: 40px;
+}
+
+.tool-subheading {
+  font-size: 1rem;
 }
 
 /*h1 {
@@ -16,18 +50,24 @@ html {
   font-size: 1.5rem;
 }*/
 
-.nav-no-bullets {
+.nav-area {
+  width: max-content;
+}
+
+.nav-headline {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+nav > ul {   /* Child combinator */
   list-style-type: none; /* Remove bullets */
   padding: 0 3px; /* Remove padding */
-  margin: 0; /* Remove margins */
+  width: inherit; /* Inherited from the parent element */
+  border: 1px solid darkgray;
+  margin: 0 0 20px 0;
 }
 
 li {
-  line-height: 2;
-  letter-spacing: 1px;
-}
-
-p {
   line-height: 2;
   letter-spacing: 1px;
 }
@@ -37,22 +77,18 @@ img {
   margin: 0 auto;
 }
 
-nav {
-  width: max-content;
-  margin: 10px;
-}
-
-.outer {
-  width: max-content;
-}
-
-#nav-hex-tools, #nav-s-record-tools, #nav-other-tools {
-  width: calc(100%);
-  border: 1px solid black;
-  margin: 10px;
-}
-
 a:hover {
   text-decoration: none;
 }
+
+/*
+body {
+  background-color: pink;
+}
+
+@media (min-width: 30em) {
+  body {
+    background-color: blue;
+  }
+}*/
 
