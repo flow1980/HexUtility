@@ -1,48 +1,57 @@
-/* Handle basic element styling */
+/* Handle basic element styling - type selectors */
 /*---------------------------------------------------------------------------------------------------------------------
 */
 
 html {
+  /*display: grid;
+  grid-template-columns: 1fr 1fr;*/
   /*margin: 0 auto;*/
   /*padding: 2rem;*/
 
-  /*font-size: 12px;*/
-  font-weight: normal;
-  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box; /* Use the alternative box model */
 
-  /*display: grid;
-  grid-template-columns: 1fr 1fr;*/
-  /*background-color: #00539F;*/
-  box-sizing: border-box;   /* Use the alternative box model */
+  font-size: 100%;
+  font-size: 0.7vw;
+  font-weight: normal;
+  /*font-family: 'Open Sans', sans-serif;*/
+  font-family:sans-serif;
+
+  /*background: rgb(150,173,170);
+  background-image: linear-gradient(90deg, rgba(150,173,170,1) 0%, rgba(115,167,159,1) 33%, rgba(82,162,150,1) 100%);*/
+  background-color: rgb(189, 214, 222);
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;   /* Inherited from the html element */
-}
-
-.no-margin {
-  margin: 0;
+  box-sizing: inherit; /* Inherited from the html element */
 }
 
 /*body {
   display: flex;
+
+  font-size: 0.875rem;
 }*/
 
-.content-area {
-  display: flex;
-  margin: 0 auto;
+button {
+  padding: 0.625rem 2rem;
+
+  font-weight: bold;
+  color: #fff;
+  background-color: #999;
+  border-radius: 5px
 }
 
-main {
-  margin-left: 40px;
-}
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  padding: 0;
 
-.tool-subheading {
-  font-size: 1rem;
+  font-family: inherit;
+  font-size: 100%;
 }
-
 /*h1 {
 }*/
 
@@ -50,43 +59,84 @@ main {
   font-size: 1.5rem;
 }*/
 
-.nav-area {
-  width: max-content;
-}
-
-.nav-headline {
-  font-size: 1.2em;
-  margin: 0;
-}
-
-nav > ul {   /* Child combinator */
-  list-style-type: none; /* Remove bullets */
-  padding: 0 3px; /* Remove padding */
-  width: inherit; /* Inherited from the parent element */
-  border: 1px solid darkgray;
-  margin: 0 0 20px 0;
+input{
+  margin: 0 0 1rem 0;
+  padding: 0.25rem
 }
 
 li {
-  line-height: 2;
-  letter-spacing: 1px;
+  line-height: 2rem;
 }
 
-img {
-  display: block;
+main {
+  margin-left: 2.5rem;
+}
+
+nav {
+  margin-bottom: 1.25rem;
+  padding-top: 0;
+
+  max-width: 100%;
+}
+
+nav > ul { /* Child combinator */
+  padding: 0 0.1875rem; /* top and bottom | left and right */
+
+  list-style-type: none; /* Remove bullets */
+}
+
+
+/* Handle basic element styling - class selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+.box {
+  border: 0.0625rem solid darkgray;
+  border-radius: 0.625rem;
+}
+
+.content-area {
+  display: flex;
   margin: 0 auto;
 }
+
+/*.nav-area {
+}*/
+
+.nav-headline {
+  padding: 0 0.1875rem; /* top and bottom | left and right */
+
+  font-size: 1.2rem;
+  background-color: darkgray;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+/*.tool-subheading {
+  font-size: 1rem;
+}*/
+
+/* Handle basic element styling - pseudo-class selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
 
 a:hover {
   text-decoration: none;
 }
 
-/*
-body {
-  background-color: pink;
+button:hover {
+  background-color: #333;
 }
 
-@media (min-width: 30em) {
+/* Handle basic element styling - media queries */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+/*@media (min-width: 30em) {
   body {
     background-color: blue;
   }
