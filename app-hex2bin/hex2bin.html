@@ -16,7 +16,7 @@
     </header>
     
     <!-- Use any element to open the sidenav -->
-    <span id="open-sidenav" onclick="openNav()">&#9776 Menu</span>
+    <span id="open-sidenav" onclick="openNav()">&#9776; Menu</span>
 
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -44,22 +44,34 @@
       
       <p>Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file.<br><br></p>
       
-      <div class="no-margin">
-        <p class="no-margin">Input file (.hex file):</p>
-        <input type="file" accept=".hex" id="hex2bin-input-hexfile">
-      </div>
+      <fieldset>
+        <legend>Input file (.hex file):</legend>
+        <input type="text" size="100">
+        <button>Browse</button>
+      </fieldset>
 
-      <div class="no-margin" id="hex2bin-address-ranges">
-        <p class="no-margin">[OPTIONAL] Address Range(s) of the .hex file to be converted:</p>
+      <fieldset>
+        <legend>[OPTIONAL] Address Range(s) of the .hex file to be converted:</legend>
+        <p class="no-margin">
+          <u>Syntax:</u><br>
+          StartAddress1:EndAddress1,StartAddress2:EndAddress2,...<br>
+          Addresses in hex format without prefix '0x' or postfix 'H', not longer than 32 bit and case insensitive.<br>
+          Address ranges separated by comma (','), no spaces allowed at all.<br>
+          As many .bin files as the number 'n' of specified address ranges are created.<br>
+          The .bin files are named with a suffix from 0 to n-1.<br>
+          <u>Example:</u><br>
+          0:3FFF,4000:1FFFF
+        </p>
+        <input type="text" size="100">
+      </fieldset>
 
-      </div>
+      <fieldset>
+        <legend>Output file (.bin file):</legend>
+        <input type="text" size="100">
+        <button>Browse</button>
+      </fieldset>
 
-      <div class="browse-output-file">
-        <p>Output file (.bin file):</p>
-
-      </div>
-
-      <button id="hex2bin-start-conversion">Start Hex2Bin Conversion ...</button>
+      <button id="hex2bin-start-conversion">Start Hex2Bin Conversion</button>
     </main>
 
     <!--footer>

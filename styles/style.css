@@ -3,19 +3,11 @@
 */
 
 html {
-  /*display: grid;
-  grid-template-columns: 1fr 1fr;*/
-  /*margin: 0 auto;*/
-  /*padding: 2rem;*/
-
   box-sizing: border-box; /* Use the alternative box model */
 
   font-size: 10px;
   font-family: "Helvetica", "Arial", sans-serif;
-  /*letter-spacing: 1px;*/
 
-  /*background: rgb(150,173,170);
-  background-image: linear-gradient(90deg, rgba(150,173,170,1) 0%, rgba(115,167,159,1) 33%, rgba(82,162,150,1) 100%);*/
   background-color: rgb(193, 227, 255);
 }
 
@@ -34,24 +26,26 @@ html {
   text-decoration: none;
 }*/
 
-button {
-  padding: 1rem 2rem;
-
-  font-weight: bold;
-  color: #fff;
-  background-color: #999;
-  border-radius: 0.5rem
-}
-
 button,
 input,
 select,
 textarea {
   margin: 0;
   padding: 0;
-
   font-family: inherit;
   font-size: 1.2rem;
+}
+
+button {
+  padding: 0.2rem 0.5rem; /* top and bottom | left and right */
+  font-size: 1.2rem;
+}
+
+fieldset {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border: 0.1rem solid gray;
 }
 
 h1 {
@@ -68,12 +62,23 @@ input {
   padding: 0.2rem
 }
 
+input[type="text"] {
+  font-size: 1.2rem;
+}
+
+legend {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #000;
+}
+
 li {
   line-height: 2rem;
 }
 
 main {
   margin: 5rem 0 0 1rem; /* top | right | bottom | left */
+  width: max-content;
 }
 
 p, li {
@@ -86,6 +91,9 @@ p, li {
 */
 
 .box {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: max-content;
   border: 0.1rem solid black;
   border-radius: 1rem;
 }
@@ -150,13 +158,16 @@ p, li {
   font-size: 1rem;
 }*/
 
+
 /* || ID selectors */
 /*---------------------------------------------------------------------------------------------------------------------
 */
+
 #open-sidenav {
   font-size: 2rem;
   cursor: pointer;
 }
+
 
 /* || Pseudo-class selectors */
 /*---------------------------------------------------------------------------------------------------------------------
@@ -165,6 +176,7 @@ p, li {
 :root {
   --main-bg-color: rgb(158, 211, 255);
 }
+
 
 /* Handle basic element styling - media queries */
 /*---------------------------------------------------------------------------------------------------------------------
