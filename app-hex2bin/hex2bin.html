@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" >
+    <meta name="viewport" content="width=device-width,initial-scale=1" >
     <meta name="author" content="Florian Lengert" >
     <meta name="description" content="Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file." >
-    <title>Hex Utility</title>
+    <title>Hex Utility Suite by F. Lengert</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" >
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" >
     <link rel="stylesheet" href="../styles/style.css" >
@@ -13,65 +13,57 @@
   </head>
   <body>
     <header>
-      <h1>Hex Utility Suite</h1>
     </header>
+    
+    <!-- Use any element to open the sidenav -->
+    <span id="open-sidenav" onclick="openNav()">&#9776 Menu</span>
 
-    <div class="content-area">
-      <div class="nav-area">
-        <nav class="box">
-          <p class="nav-headline no-margin"><b>HEX Tools</b></p>
-          <ul class="no-margin">
-            <li class="box">Hex2Bin Converter</li>
-            <li class="box"><a href="../app-hex-format-converter/hex-format-converter.html">HEX Format Converter</a></li>
-            <li class="box"><a href="../app-checksum-calculator/checksum-calculator.html">Checksum Calculator</a></li>
-            <li class="box"><a href="../app-remove-ecc/remove-ecc.html">Remove ECC</a></li>
-            <li class="box"><a href="../app-remove-flash-option-bytes/remove-flash-option-bytes.html">Remove 'Flash Option Bytes'</a></li>
-            <li class="box"><a href="../app-file-compression/file-compression.html">File Compression</a></li>
-            <li class="box"><a href="../app-file-decompression/file-decompression.html">File Decompression</a></li>
-          </ul>
-        </nav>
-         <nav class="box">
-          <p class="nav-headline no-margin"><b>S-RECORD Tools</b></p>
-          <ul class="no-margin">
-            <li class="box"><a href="../app-srecord2bin/srecord2bin.html">Srecord2Bin Converter</a></li>
-            <li class="box"><a href="../app-hex2srecord/hex2srecord.html">Hex2Srecord Converter</a></li>
-            <li class="box"><a href="../app-srecord2hex/srecord2hex.html">Srecord2Hex Converter</a></li>
-          </ul>
-        </nav>
-         <nav class="box">
-          <p class="nav-headline no-margin"><b>Other Tools</b></p>
-          <ul class="no-margin">
-            <li class="box"><a href="../app-files-merger/files-merger.html">Files Merger</a></li>
-          </ul>
-        </nav>
-      </div>   <!-- nav-area -->
-  
-      <main>
-        <h2 class="no-margin">Hex2Bin Converter</h2>
-  
-        <p>Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file.<br><br></p>
-  
-        <div id="hex2bin_input-hex">
-          <p><b>Input file (.hex file):</b></p>
-          <input type="text" id="hex2bin_input-hexfile">
-        </div>
-  
-        <div id="hex2bin_address-ranges">
-          <p><b>[OPTIONAL] Address Range(s) of the .hex file to be converted:</b></p>
-  
-        </div>
-  
-        <div id="hex2bin_output-bin">
-          <p><b>Output file (.bin file):</b></p>
-  
-        </div>
-  
-        <button id="hex2bin-start-conversion">Start Hex2Bin Conversion ...</button>
-      </main>    
-    </div>  <!-- content-area -->
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      
+      <p class="nav-headline no-margin"><b>HEX Tools</b></p>
+      <p class="no-margin">Hex2Bin Converter</p>
+      <a href="../app-hex-format-converter/hex-format-converter.html">HEX Format Converter</a>
+      <a href="../app-checksum-calculator/checksum-calculator.html">Checksum Calculator</a>
+      <a href="../app-remove-ecc/remove-ecc.html">Remove ECC</a>
+      <a href="../app-remove-flash-option-bytes/remove-flash-option-bytes.html">Remove 'Flash Option Bytes'</a>
+      <a href="../app-file-compression/file-compression.html">File Compression</a>
+      <a href="../app-file-decompression/file-decompression.html">File Decompression</a>
+      
+      <p class="nav-headline no-margin"><b>S-RECORD Tools</b></p>
+      <a href="../app-srecord2bin/srecord2bin.html">Srecord2Bin Converter</a>
+      <a href="../app-hex2srecord/hex2srecord.html">Hex2Srecord Converter</a>
+      <a href="../app-srecord2hex/srecord2hex.html">Srecord2Hex Converter</a>
+      
+      <p class="nav-headline no-margin"><b>Other Tools</b></p>
+      <a href="../app-files-merger/files-merger.html">Files Merger</a>
+    </div>   <!-- sidenav -->
 
-    <footer>
-        <p>Florian Lengert, 2023</p>
-      </footer>
+    <main>
+      <h2 class="no-margin">Hex2Bin Converter</h2>
+      
+      <p>Converts a HEX file [Intel HEX (.hex) or Raw HEX (.hex)] to a raw binary file.<br><br></p>
+      
+      <div class="no-margin">
+        <p class="no-margin">Input file (.hex file):</p>
+        <input type="file" accept=".hex" id="hex2bin-input-hexfile">
+      </div>
+
+      <div class="no-margin" id="hex2bin-address-ranges">
+        <p class="no-margin">[OPTIONAL] Address Range(s) of the .hex file to be converted:</p>
+
+      </div>
+
+      <div class="browse-output-file">
+        <p>Output file (.bin file):</p>
+
+      </div>
+
+      <button id="hex2bin-start-conversion">Start Hex2Bin Conversion ...</button>
+    </main>
+
+    <!--footer>
+      <p>Florian Lengert, 2023</p>
+    </footer-->
   </body>
 </html>

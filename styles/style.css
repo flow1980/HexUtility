@@ -51,7 +51,7 @@ textarea {
   padding: 0;
 
   font-family: inherit;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 h1 {
@@ -63,15 +63,9 @@ h1 {
   font-size: 1.5rem;
 }*/
 
-footer {
-  position: relative;
-  top: 3rem;
-  text-align: center;
-}
-
-input{
-  margin: 0 0 1rem 0;
-  padding: 0.3rem
+input {
+  margin: 0.2rem 0; /* top and bottom | left and right */
+  padding: 0.2rem
 }
 
 li {
@@ -79,28 +73,11 @@ li {
 }
 
 main {
-  margin-left: 2.5rem;
-}
-
-nav {
-  margin-bottom: 2rem;
-}
-
-nav > ul { /* Child combinator */
-  padding: 1rem 0.8rem 0.5rem 0.8rem; /* top | right | bottom | left */
-
-  text-align: center;
-  list-style-type: none; /* Remove bullets */
-}
-
-nav > ul > li {
-  margin-bottom: 1rem;
-  padding: 0.2rem 0.5rem; /* top and bottom | left and right */
-  background-color: var(--main-bg-color);
+  margin: 5rem 0 0 1rem; /* top | right | bottom | left */
 }
 
 p, li {
-  font-size: 1.5rem; 
+  font-size: 1.2rem; 
 }
 
 
@@ -113,55 +90,77 @@ p, li {
   border-radius: 1rem;
 }
 
-.content-area {
-  display: flex;
-  margin: 0 auto; /* top and bottom | left and right */
-}
-
-.nav-area {
-  padding-right: 2.5rem;
-  /*border-right: 2px solid black;*/
-}
-
-.nav-headline {
-  padding: 0.2rem 0.5rem; /* top and bottom | left and right */
-
-  color: white;
-  background-color: black;
-  border-top-left-radius: 0.85rem;
-  border-top-right-radius: 0.85rem;
-}
 
 .no-margin {
   margin: 0;
+}
+
+/* The side navigation menu */
+.sidenav {
+  padding-top: 3rem;
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.sidenav .nav-headline {
+  margin-top: 2rem;
+  padding: 0.5rem; /* Apply to all four sides */
+  font-size: 2rem;
+  color: #818181;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav p {
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  font-size: 1.5rem;
+  color: #4a4a4a;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  font-size: 3.6rem;
+  margin-left: 3.0rem;
 }
 
 /*.tool-subheading {
   font-size: 1rem;
 }*/
 
+/* || ID selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+#open-sidenav {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 /* || Pseudo-class selectors */
 /*---------------------------------------------------------------------------------------------------------------------
 */
-
-a:link,
-a:visited,
-a:focus {
-  color: blue;
-  /*background-color: #999;*/
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  color: red;
-}
-
-button:hover {
-  background-color: #333;
-}
 
 :root {
   --main-bg-color: rgb(158, 211, 255);
