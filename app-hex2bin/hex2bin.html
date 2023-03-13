@@ -9,7 +9,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" >
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" >
     <link rel="stylesheet" href="../styles/style.css" >
-    <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
+    <script src="../scripts/main.js" defer></script> <!--defer: load the JavaScript after parsing the HTML is finished-->   
+    <script type="module" src="../scripts/helper-functions.js"></script>       
+    <script type="module" src="hex2bin.js"></script>   
   </head>
   <body>
     <header>
@@ -46,8 +48,7 @@
       
       <fieldset>
         <legend>Input file (.hex file):</legend>
-        <input type="text" size="100">
-        <button>Browse</button>
+        <input type="file" accept=".hex" id="inputHexfile">
       </fieldset>
 
       <fieldset>
@@ -67,8 +68,7 @@
 
       <fieldset>
         <legend>Output file (.bin file):</legend>
-        <input type="text" size="100">
-        <button>Browse</button>
+        <input type="file" accept=".bin" id="outputBinfile">
       </fieldset>
 
       <button id="hex2bin-start-conversion">Start Hex2Bin Conversion</button>

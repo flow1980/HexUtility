@@ -59,7 +59,8 @@ h1 {
 
 input {
   margin: 0.2rem 0; /* top and bottom | left and right */
-  padding: 0.2rem
+  padding: 0.2rem;
+  width: 100%;
 }
 
 input[type="text"] {
