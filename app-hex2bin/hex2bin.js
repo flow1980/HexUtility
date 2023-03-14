@@ -1,35 +1,42 @@
 import { hexFilePickerOpts, binFilePickerOpts } from "../scripts/helper-functions.js";
 
 
-let fileList;
-let hexfileContent;
+let hexFile;
+let hexFileContent;
 let binFile;
 
-const inputElementHexfile = document.getElementById("inputHexfile");
-inputElementHexfile.addEventListener("change", readHexfile, false);
+const inputHexfile = document.getElementById("hex2bin-inputHexfile");
+inputHexfile.addEventListener("change", readHexfile, false);
 
 async function readHexfile() {
-   [fileList] = this.files;
+   hexFile = this.files[0];
    
-   if (fileList) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-         hexfileContent = reader.result;
-       });
-       reader.readAsText(fileList);
+   if (hexFile) {
+      buttonStartConversion.disabled = false;
    }
 }
 
-const btnElement = document.getElementById("hex2bin-downloadBinfile");
-btnElement.addEventListener("click", downloadBinfile);
+
+const buttonStartConversion = document.getElementById("hex2bin-startConversion");
+buttonStartConversion.addEventListener("click", Hex2Bin);
+
+function Hex2Bin () {
+   const reader = new FileReader();
+   reader.addEventListener("load", () => {
+      hexFileContent = reader.result;
+      downloadBinfile();
+   });
+   reader.readAsText(hexFile);
+}
+
 
 function downloadBinfile() {
-   binFile = new Blob([hexfileContent]);
+   binFile = new Blob([hexFileContent]);
    const link = document.createElement('a');
    link.style.display = 'none';
    const url = URL.createObjectURL(binFile);
    link.href = url;
-   link.download = fileList.name.replace('.hex', '.bin');
+   link.download = hexFile.name.replace('.hex', '.bin');
 
    document.body.appendChild(link); /* It needs to be added to the DOM so it can be clicked. */
    link.click();
