@@ -55,23 +55,19 @@
         <legend>[OPTIONAL] Address Range(s) of the .hex file to be converted:</legend>
         <p class="no-margin">
           <u>Syntax:</u><br>
-          StartAddress1:EndAddress1,StartAddress2:EndAddress2,...<br>
+          <span id="hex2bin-addressRangesSyntax"><b>StartAddress1:EndAddress1,StartAddress2:EndAddress2,...</b></span><br>
           Addresses in hex format without prefix '0x' or postfix 'H', not longer than 32 bit and case insensitive.<br>
           Address ranges separated by comma (','), no spaces allowed at all.<br>
           As many .bin files as the number 'n' of specified address ranges are created.<br>
           The .bin files are named with a suffix from 0 to n-1.<br>
           <u>Example:</u><br>
-          0:3FFF,4000:1FFFF
+          <span id="hex2bin-addressRangesExample"><b>0:3FFF,4000:1FFFF</b></span>
         </p>
         <input type="text" size="100">
       </fieldset>
 
-      <fieldset>
-        <legend>Output file (.bin file):</legend>
-        <input type="file" accept=".bin" id="outputBinfile">
-      </fieldset>
-
-      <button id="hex2bin-start-conversion">Start Hex2Bin Conversion</button>
+      <button id="hex2bin-startConversion">Start Hex2Bin Conversion</button>
+      <button id="hex2bin-downloadBinfile">Download bin file</button>
     </main>
 
     <!--footer>

@@ -169,6 +169,11 @@ p, li {
   cursor: pointer;
 }
 
+#hex2bin-addressRangesSyntax, #hex2bin-addressRangesExample {
+  font-family: 'Courier New', Courier, monospace;
+  color: rgba(255, 0, 0, 0.712); 
+}
+
 
 /* || Pseudo-class selectors */
 /*---------------------------------------------------------------------------------------------------------------------
