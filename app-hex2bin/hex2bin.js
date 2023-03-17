@@ -1,14 +1,31 @@
-import { hexFilePickerOpts, binFilePickerOpts, hexFilePattern, isRawHexFile, convertHexStringToByteArray, convertByteArrayToHexstring } from "../scripts/helper-functions.js";
+import { hexFilePickerOpts, binFilePickerOpts, setButtonProgressState } from "../scripts/helper-functions.js";
+
+
+/* Create a new worker, giving it the code in "IntelHexAndBinFile.js" 
+   As soon as the worker is created, the worker script is executed.
+   The first thing the worker does is start listening for messages from the main script.
+   It does this using addEventListener(), which is a global function in a worker. */
+const worker = new Worker('../scripts/IntelHexAndBinFile.js');
 
 
 let hexFile;
-let hexFileContent;
-let binFile;
 
 const inputHexfile = document.getElementById("hex2bin-inputHexfile");
 inputHexfile.addEventListener("change", selectHexfile);
 
-async function selectHexfile()
+const addressRanges = document.getElementById("hex2bin-addressRanges");
+
+
+function resetGUI()
+{
+   setButtonProgressState(buttonStartConversion, "paused");
+   
+   inputHexfile.disabled = false;
+   inputHexfile.value = "";
+}
+
+
+function selectHexfile()
 {
    hexFile = this.files[0];
 
@@ -22,115 +39,51 @@ async function selectHexfile()
 const buttonStartConversion = document.getElementById("hex2bin-startConversion");
 buttonStartConversion.addEventListener("click", startHex2Bin);
 
+
+/* When the user clicks "Start Hex2Bin Conversion" AND the Input .hex file is loaded, 
+   send a message to the worker.
+   The message command is "Hex2Bin", and the message also contains the "hexFileContent",
+   which is the complete content of the input .hex file. */
 function startHex2Bin()
 {
    const reader = new FileReader();
+   let hexFileContent; 
+
+   inputHexfile.disabled = true;
+   setButtonProgressState(buttonStartConversion, "running");
+
+
    reader.addEventListener("load", () => {
       hexFileContent = reader.result;
-       Hex2Bin(hexFileContent);
+      worker.postMessage({
+         command: "Hex2Bin",
+         hexFileContent: hexFileContent
+      })
    });
    reader.readAsText(hexFile);
 }
 
 
-function Hex2Bin(hexFileContent) {
-   /*********************************************************************************/
-   /*** Variables declarations                                                      */
-   /*********************************************************************************/
-   let result = 0;
-   let addr = 0;
-   let absaddr = 0;
-   let currAbsaddr = 0;
-   let offset = 0;
-   let startIndex = 0;
-   let endIndex = 0;
-
-   let hexFileLines = hexFileContent.split("\n");
-   let line = "";
-   let lineAsBytes = [];
-   let binFileContent = [];
-
-   let matches = [];
-
-   let recordType = "";
-
-   if (isRawHexFile(hexFileContent))
+/* When the worker sends a message back to the main thread,
+   download the bin file and reset the GUI */
+worker.addEventListener("message", message => {
+   if (0 != message.data.result)
    {
-      for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0); i++)
-      {
-         let lineAsBytesObject = convertHexStringToByteArray(hexFileLines[i]);
-
-         if (false == lineAsBytesObject.result)
-         {
-            result = 1;
-         }
-         else
-         {
-            binFileContent.push(...lineAsBytesObject.byteArray);
-         }
-      }
-   }
-   else 
-   {
-      for (let i = 0; (i < (hexFileLines.length)) && (0 === result) && (hexFileLines[i].length > 0); i++)
-      {
-         /* Match the regular expression pattern against a text string. */
-         matches = hexFilePattern.exec(hexFileLines[i]);
-         if (null !== matches)
-         {
-            /* 
-               Filter for data records (record type '00') according to Intel HEX format
-               The first element of the GroupCollection object (match.Groups[0]) contains a string
-               that matches the entire regular expression pattern.
-               Each subsequent element represents a captured group, if the regular expression includes
-               capturing groups.
-            */
-            recordType = matches[3];
-            /* Data Record */
-            if ("00" === recordType)
-            {
-               let lineAsBytesObject = convertHexStringToByteArray(matches[4]);
-
-               if (false == lineAsBytesObject.result)
-               {
-                  result = 1;
-               }
-               else
-               {
-                  binFileContent.push(...lineAsBytesObject.byteArray);
-               }
-            }
-         }
-         else
-         {
-            result = 1;
-            
-         }
-     }
-   }
-
-   if (0 != result)
-   {
-      alert("Error: HEX file is corrupt !!!");
+      alert("ERROR: HEX file is corrupt !!!");
    }
    else
    {
-      downloadBinfile(binFileContent);
+      downloadBinfile(message.data.binFileBlob);
    }
-
-   return result;
-}
-
+   resetGUI();
+});
 
 
-function downloadBinfile(binFileContent)
-{
-   let byteArray = new Uint8Array(binFileContent);
-   binFile = new Blob([byteArray], { type: "application/octet-stream" });
-   
+function downloadBinfile(binFileBlob)
+{   
    const link = document.createElement('a');
    link.style.display = 'none';
-   const url = URL.createObjectURL(binFile);
+   const url = URL.createObjectURL(binFileBlob);
    link.href = url;
    link.download = hexFile.name.replace('.hex', '.bin');
 

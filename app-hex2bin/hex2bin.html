@@ -63,10 +63,14 @@
           <u>Example:</u><br>
           <span id="hex2bin-addressRangesExample"><b>0:3FFF,4000:1FFFF</b></span>
         </p>
-        <input type="text" size="100">
+        <input type="text" pattern="^(([a-f0-9]+):([a-f0-9]+),?)+$" size="100" id="hex2bin-addressRanges">
       </fieldset>
 
-      <button disabled id="hex2bin-startConversion">Start Hex2Bin Conversion</button>
+      <button disabled id="hex2bin-startConversion" class="startButton">
+         <div class="buttonProgress"></div>
+         <span class="buttonText">Start Hex2Bin Conversion</span>
+      </button>
+
     </main>
 
     <!--footer>
