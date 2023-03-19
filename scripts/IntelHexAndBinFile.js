@@ -2,7 +2,7 @@
    If the message command is e.g. "Hex2Bin", call the function "Hex2Bin". */
 addEventListener("message", message => {
    if (message.data.command === 'Hex2Bin') {
-      Hex2Bin(message.data.hexFileContent);
+      Hex2Bin(message.data.hexFileContent, message.data.addressRanges);
    }
 });
 
@@ -103,35 +103,40 @@ function convertByteArrayToHexstring(byteArray)
  * Checks if the syntax of the address range(s) is valid.
  *    @param   Address range(s) string
  *    @param   OUT: Array of the address range(s)
- *    @return  Result (0: valid, 1: incorrect syntax, 2: Start address is not smaller than end address
- *                               3: At least one start or end address is longer than 32 bit (> 2^32-1) )
+ *    @return  Result (0: valid, 1: Start address is not smaller than end address
+ *                               2: At least one start or end address is longer than 32 bit (> 2^32-1) )
  * --------------------------------------------------------------------
  */
-function checkSyntaxOfAddressRanges(addressRangesString)
+function checkAddressRanges(addressRangesString)
 {
    let result = 0;
-   addressRanges = [];
+   let matches;
+   let addressRanges = [];
+   let startAddressString = "";
+   let endAddressString = "";
+   let startAddress = 0;
+   let endAddress = 0;
 
-   const addressRangesPattern = /^(([a-f0-9]+):([a-f0-9]+),?)+$/;
+
+   const addressRangesPattern = /^((?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8}),?)+$/g;
    /*
       ^        : The comparison must start at the beginning of a string or line.
       [a-f0-9] : Matches only hexadecimal digits.
-      +        : Matches the previous element one or more times.
+      {1,8}    : Matches the previous element at least once and at most 8 times.
       ?        : Matches the previous element zero or one time.
       ()       : Captures the matched subexpression and assigns it a zero-based ordinal number.
       $        : The match must also be at the end of the string.
    */
 
    /* Match the regular expression pattern against a text string. */
-   matches = hexFilePattern.exec(addressRangesString);
-   if (null !== matches)
+   matches = addressRangesString.matchAll(addressRangesPattern);
+
+   startAddress = parseInt("");
+   endAddress   = parseInt("");
+      
+   for (let match of matches)
    {
-      let startAddress, endAddress;
-      addressRanges = new Array(matches[2]);
-   }
-   else
-   {
-      result = 1;
+      console.log(match.groups.startAddress);
    }
 }
 
@@ -140,7 +145,7 @@ function checkSyntaxOfAddressRanges(addressRangesString)
  * --------------------------------------------------------------------
  * Converts an Intel/Raw HEX file (.hex-file) to a binary file (.bin-file).
  *    @param   Input HEX file content as string
- *    @param   Address ranges of the .hex file to be converted (OPTIONAL).
+ *    @param   Address ranges of the .hex file to be converted as string (OPTIONAL).
  *    @return  Message to the main thread with the conversion result (0: success, !=0: error) AND
  *             the bin file as content
  * --------------------------------------------------------------------
@@ -186,7 +191,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
    }
    else
    {
-      if (undefined === addressRanges)
+      if ("" === addressRanges)
       {
          for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (0 === result); i++)
          {
@@ -227,7 +232,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
       }
       else
       {
-
+         result = checkAddressRanges(addressRanges);
       }
    }
 

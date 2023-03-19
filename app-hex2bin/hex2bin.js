@@ -9,11 +9,26 @@ const worker = new Worker('../scripts/IntelHexAndBinFile.js');
 
 
 let hexFile;
+let isAddressRangeValid = true;
 
 const inputHexfile = document.getElementById("hex2bin-inputHexfile");
 inputHexfile.addEventListener("change", selectHexfile);
 
 const addressRanges = document.getElementById("hex2bin-addressRanges");
+document.addEventListener("click", function(){
+   addressRanges.addEventListener("input", function(e){
+      if(this.checkValidity())
+      {
+         isAddressRangeValid = true;
+         buttonStartConversion.disabled = false;
+      }
+      else
+      {
+         isAddressRangeValid = false;
+         buttonStartConversion.disabled = true;;
+      }
+   });   
+});
 
 
 function resetGUI()
@@ -22,14 +37,17 @@ function resetGUI()
    
    inputHexfile.disabled = false;
    inputHexfile.value = "";
+
+   addressRanges.disabled = false;
+   addressRanges.value = "";
 }
 
 
 function selectHexfile()
 {
    hexFile = this.files[0];
-
-   if (hexFile)
+   
+   if ((hexFile) && (true === isAddressRangeValid))
    {
       buttonStartConversion.disabled = false;
    }
@@ -52,12 +70,15 @@ function startHex2Bin()
    inputHexfile.disabled = true;
    setButtonProgressState(buttonStartConversion, "running");
 
+   addressRanges.disabled = true;
+
 
    reader.addEventListener("load", () => {
       hexFileContent = reader.result;
       worker.postMessage({
          command: "Hex2Bin",
-         hexFileContent: hexFileContent
+         hexFileContent: hexFileContent,
+         addressRanges: addressRanges.value
       })
    });
    reader.readAsText(hexFile);
@@ -67,13 +88,19 @@ function startHex2Bin()
 /* When the worker sends a message back to the main thread,
    download the bin file and reset the GUI */
 worker.addEventListener("message", message => {
-   if (0 != message.data.result)
+   switch(message.data.result)
    {
-      alert("ERROR: HEX file is corrupt !!!");
-   }
-   else
-   {
-      downloadBinfile(message.data.binFileBlob);
+      case 0:
+         downloadBinfile(message.data.binFileBlob);
+         break;
+      case 1:
+         alert("ERROR: HEX file is corrupt !!!");
+         break;
+      case 2:
+         alert("For at least one address range, the start address is not less than the end address !!!");
+         break;
+      deafult:
+         break;
    }
    resetGUI();
 });
