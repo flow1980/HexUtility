@@ -48,7 +48,7 @@
       
       <fieldset>
         <legend>Input file (.hex file):</legend>
-        <input type="file" accept=".hex" id="hex2bin-inputHexfile">
+        <input type="file" accept=".hex" title="Please choose a .hex file to be converted into a .bin file!" id="hex2bin-inputHexfile">
       </fieldset>
 
       <fieldset>
@@ -63,7 +63,7 @@
           <u>Example:</u><br>
           <span id="hex2bin-addressRangesExample"><b>0:3FFF,4000:1FFFF</b></span>
         </p>
-        <input type="text" pattern="^(([a-fA-F0-9]{1,8}):([a-fA-F0-9]{1,8}),?)+$" size="100" id="hex2bin-addressRanges">
+        <input type="text" title="Please specify address range(s), if you only want to convert certain address range(s)!" pattern="^(([a-fA-F0-9]{1,8}):([a-fA-F0-9]{1,8}),?)+$" size="100" id="hex2bin-addressRanges">
       </fieldset>
 
       <button disabled id="hex2bin-startConversion" class="startButton">

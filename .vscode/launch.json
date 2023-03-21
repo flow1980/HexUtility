@@ -5,10 +5,10 @@
    "version": "0.2.0",
    "configurations": [
       {
-         "name": "Launch Chrome",
+         "type": "msedge",
+         "name": "http://127.0.0.1:3000/app-hex2bin/hex2bin.html",
          "request": "launch",
-         "type": "chrome",
-         "file": "D:\\EigeneDateien\\ProgrammingLanguages\\Web\\flow1980.github.io\\index.html"
+         "url": "http://127.0.0.1:3000/app-hex2bin/hex2bin.html"
       },
       {
          "type": "chrome",

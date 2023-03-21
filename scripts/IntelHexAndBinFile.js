@@ -103,8 +103,7 @@ function convertByteArrayToHexstring(byteArray)
  * Checks if the syntax of the address range(s) is valid.
  *    @param   Address range(s) string
  *    @param   OUT: Array of the address range(s)
- *    @return  Result (0: valid, 1: Start address is not smaller than end address
- *                               2: At least one start or end address is longer than 32 bit (> 2^32-1) )
+ *    @return  Result (0: valid, 2: Start address is not smaller than end address
  * --------------------------------------------------------------------
  */
 function checkAddressRanges(addressRangesString)
@@ -118,12 +117,15 @@ function checkAddressRanges(addressRangesString)
    let endAddress = 0;
 
 
-   const addressRangesPattern = /^((?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8}),?)+$/g;
+//   const addressRangesPattern = /^((?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8}),?)+$/g;
+//   const addressRangesPattern = /^(([a-fA-F0-9]{1,8}):([a-fA-F0-9]{1,8}),?)+$\1\2\3/g;
+   const addressRangesPattern = /(?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8})/g;
    /*
       ^        : The comparison must start at the beginning of a string or line.
       [a-f0-9] : Matches only hexadecimal digits.
       {1,8}    : Matches the previous element at least once and at most 8 times.
       ?        : Matches the previous element zero or one time.
+      +        : Matches the previous element once or more timnes. 
       ()       : Captures the matched subexpression and assigns it a zero-based ordinal number.
       $        : The match must also be at the end of the string.
    */
@@ -131,13 +133,21 @@ function checkAddressRanges(addressRangesString)
    /* Match the regular expression pattern against a text string. */
    matches = addressRangesString.matchAll(addressRangesPattern);
 
-   startAddress = parseInt("");
-   endAddress   = parseInt("");
       
    for (let match of matches)
    {
       console.log(match.groups.startAddress);
+      console.log(match.groups.endAddress);
+      startAddress = parseInt(match.groups.startAddress);
+      endAddress   = parseInt(match.groups.endAddress);
+   
+      if(startAddress >= endAddress)
+      {
+         result = 2;
+      }
    }
+
+   return result;
 }
 
 

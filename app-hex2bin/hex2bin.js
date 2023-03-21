@@ -20,12 +20,14 @@ document.addEventListener("click", function(){
       if(this.checkValidity())
       {
          isAddressRangeValid = true;
-         buttonStartConversion.disabled = false;
+         if(hexFile){
+            buttonStartConversion.disabled = false;
+         }
       }
       else
       {
          isAddressRangeValid = false;
-         buttonStartConversion.disabled = true;;
+         buttonStartConversion.disabled = true;
       }
    });   
 });
