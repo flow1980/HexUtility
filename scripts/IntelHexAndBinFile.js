@@ -45,21 +45,32 @@ function isRawHexFile(hexFileContent)
  * --------------------------------------------------------------------
  * Converts a hexadecimal string to a byte array.
  *    @param   Hexadecimal string
+ *    @param   OPTIONAL: Length in bytes
  *    @return  Conversion result (true: successful, false: not successful) AND
  *             byte array
  * --------------------------------------------------------------------
  */
-function convertHexStringToByteArray(hexString)
+function convertHexStringToByteArray(hexString, length)
 {
    let result = true;
    let byteArray = [];
+   let lengthInBytes;
 
    if (hexString.length % 2 != 0)
    {
       result = false;
    }
 
-   for (let c = 0; (c < hexString.length) && (true === result); c += 2)
+   if (undefined === length)
+   {
+      lengthInBytes = hexString.length;
+   }
+   else
+   {
+      lengthInBytes = length;
+   }
+
+   for (let c = 0; (c < lengthInBytes) && (true === result); c += 2)
    {
       byteArray.push(parseInt(hexString.substring(c, c + 2), 16));
       /*
@@ -100,25 +111,20 @@ function convertByteArrayToHexstring(byteArray)
 
 /* 
  * --------------------------------------------------------------------
- * Checks if the syntax of the address range(s) is valid.
+ * Checks if the start address of the address range(s) is less than or equal to the end address of the address range(s).
  *    @param   Address range(s) string
- *    @param   OUT: Array of the address range(s)
- *    @return  Result (0: valid, 2: Start address is not smaller than end address
+ *    @return  Result (0: valid, 2: the start address is not less than or equal to end address) AND
+ *             array of address ranges
  * --------------------------------------------------------------------
  */
 function checkAddressRanges(addressRangesString)
 {
    let result = 0;
    let matches;
-   let addressRanges = [];
-   let startAddressString = "";
-   let endAddressString = "";
    let startAddress = 0;
    let endAddress = 0;
+   let addressRanges = [];
 
-
-//   const addressRangesPattern = /^((?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8}),?)+$/g;
-//   const addressRangesPattern = /^(([a-fA-F0-9]{1,8}):([a-fA-F0-9]{1,8}),?)+$\1\2\3/g;
    const addressRangesPattern = /(?<startAddress>[a-fA-F0-9]{1,8}):(?<endAddress>[a-fA-F0-9]{1,8})/g;
    /*
       ^        : The comparison must start at the beginning of a string or line.
@@ -136,18 +142,23 @@ function checkAddressRanges(addressRangesString)
       
    for (let match of matches)
    {
-      console.log(match.groups.startAddress);
-      console.log(match.groups.endAddress);
-      startAddress = parseInt(match.groups.startAddress);
-      endAddress   = parseInt(match.groups.endAddress);
+      startAddress = Number("0x" + match.groups.startAddress);
+      endAddress   = Number("0x" + match.groups.endAddress);
    
-      if(startAddress >= endAddress)
+      if(startAddress > endAddress)
       {
          result = 2;
       }
+      else
+      {
+         addressRanges.push({startAddress: startAddress, endAddress: endAddress});
+      }
    }
 
-   return result;
+   return {
+      "result": result,
+      "addressRanges": addressRanges
+   };
 }
 
 
@@ -177,6 +188,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
    let lineAsBytes = [];
    let binFileContent = [];
    let binFileBlob;
+   let binFileBlobArray = [];
 
    let matches = [];
 
@@ -239,29 +251,123 @@ function Hex2Bin(hexFileContent, addressRanges) {
                result = 1;
             }
          }
-      }
+
+         if (0 === result)
+         {
+            let byteArray = new Uint8Array(binFileContent);
+            binFileBlob = new Blob([byteArray], { type: "application/octet-stream" });
+            binFileBlobArray.push(binFileBlob);
+         }      
+      } /* if ("" === addressRanges) */
       else
       {
-         result = checkAddressRanges(addressRanges);
-      }
-   }
+         let resultAddressRangesCheck = checkAddressRanges(addressRanges);
+         result = resultAddressRangesCheck.result;
 
-   if (0 === result)
-   {
-      let byteArray = new Uint8Array(binFileContent);
-      binFileBlob = new Blob([byteArray], { type: "application/octet-stream" });
-   }
-   else
-   {
-      binFileBlob = null;
-   }
+         if (0 === result)
+         {
+            for (let j = 0; (j < resultAddressRangesCheck.addressRanges.length) && (0 === result); j++)
+            {
+               for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (0 === result); i++)
+               {
+                  /* Match the regular expression pattern against a text string. */
+                  matches = hexFilePattern.exec(hexFileLines[i]);
+                  if (null !== matches)
+                  {
+                     /* 
+                        Filter for data records (record type '00') according to Intel HEX format
+                        The first element of the GroupCollection object (match.Groups[0]) contains a string
+                        that matches the entire regular expression pattern.
+                        Each subsequent element represents a captured group, if the regular expression includes
+                        capturing groups.
+                     */
+                     
+                        recordType = matches[3];
+                     
+                     /* Data Record */
+                     if ("00" === recordType)
+                     {
+                        addr = Number("0x"+ matches[2]);
+                        absaddr = addr + offset;
+                        currAbsaddr = absaddr + (matches[4].length / 2) - 1;
+   
+                        if (   ( (absaddr >= resultAddressRangesCheck.addressRanges[j].startAddress) || (currAbsaddr >= resultAddressRangesCheck.addressRanges[j].startAddress) ) 
+                            &&   (absaddr <= resultAddressRangesCheck.addressRanges[j].endAddress)
+                           )
+                        {
+                           /* Start address is not at the beginning of a line */
+                           if ((absaddr < resultAddressRangesCheck.addressRanges[j].startAddress) && (currAbsaddr >= resultAddressRangesCheck.addressRanges[j].startAddress))
+                           {
+                               startIndex = (resultAddressRangesCheck.addressRanges[j].startAddress - absaddr) * 2;
+                           }
+                           else
+                           {
+                               startIndex = 0;
+                           }
+      
+                           /* End address is not at the end of a line */
+                           if (currAbsaddr > resultAddressRangesCheck.addressRanges[j].endAddress)
+                           {
+                               endIndex = (resultAddressRangesCheck.addressRanges[j].endAddress - absaddr) * 2 + 1 ;
+                           }
+                           else
+                           {
+                               endIndex = matches[4].length - 1;
+                           }
+                           
+                           let lineAsBytesObject = convertHexStringToByteArray(matches[4].substring(startIndex, endIndex + 1));
+         
+                           if (false === lineAsBytesObject.result)
+                           {
+                              result = 1;
+                           }
+                           else
+                           {
+                              binFileContent.push(...lineAsBytesObject.byteArray);
+                           }
+                        }
+                        else
+                        {
+                        }
+                     }
+                     /* Extended Segment Address Record */
+                     else if ("02" == recordType)
+                     {
+                        addr = Number("0x" + matches[4]);
+                        offset = (addr << 4);
+                     }
+                     /* Extended Linear Address Record */
+                     else if ("04" == recordType)
+                     {
+                        addr = Number("0x" + matches[4]);
+                        offset = (addr << 16);
+                     }
+                  }
+                  else
+                  {
+                     result = 1;
+                  }
+               }
+
+               if (0 === result)
+               {
+                  let byteArray = new Uint8Array(binFileContent);
+                  binFileBlob = new Blob([byteArray], { type: "application/octet-stream" });
+                  binFileBlobArray.push(binFileBlob);
+                  
+                  binFileContent.length = 0; /* Empties/clears the array */
+               }            
+            }   
+         } /* address ranges check passed */
+      } /* else: ("" === addressRanges) */
+   } /* else: isRawHexFile(hexFileContent) */
 
    const returnObject = {
       result: result,
-      binFileBlob: binFileBlob
+      binFileBlobArray: binFileBlobArray
    }
 
-   /* When finished, send a message to the main thread, including the "binFileBlob".
+   /* When finished, send a message to the main thread, including the "binFileBlobArray".
       The main script is listening for this message and will update the DOM when the message is received. */
    postMessage(returnObject);
 }

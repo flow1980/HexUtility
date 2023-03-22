@@ -14,13 +14,32 @@ let isAddressRangeValid = true;
 const inputHexfile = document.getElementById("hex2bin-inputHexfile");
 inputHexfile.addEventListener("change", selectHexfile);
 
+/*
+ * --------------------------------------------------------------------
+ * Stores the information about the selected file.
+ *    @param   ---
+ *    @return  ---
+ * --------------------------------------------------------------------
+ */
+function selectHexfile()
+{
+   hexFile = this.files[0];
+   
+   if ((hexFile) && (true === isAddressRangeValid))
+   {
+      buttonStartConversion.disabled = false;
+   }
+}
+
+
 const addressRanges = document.getElementById("hex2bin-addressRanges");
 document.addEventListener("click", function(){
    addressRanges.addEventListener("input", function(e){
       if(this.checkValidity())
       {
          isAddressRangeValid = true;
-         if(hexFile){
+         if("" !== inputHexfile.value)
+         {
             buttonStartConversion.disabled = false;
          }
       }
@@ -33,6 +52,13 @@ document.addEventListener("click", function(){
 });
 
 
+/*
+ * --------------------------------------------------------------------
+ * Resets the GUI/DOM by clearing the input elements and disabling the "Start Hex2Bin Conversion" button.
+ *    @param   ---
+ *    @return  ---
+ * --------------------------------------------------------------------
+ */
 function resetGUI()
 {
    setButtonProgressState(buttonStartConversion, "paused");
@@ -42,17 +68,8 @@ function resetGUI()
 
    addressRanges.disabled = false;
    addressRanges.value = "";
-}
 
-
-function selectHexfile()
-{
-   hexFile = this.files[0];
-   
-   if ((hexFile) && (true === isAddressRangeValid))
-   {
-      buttonStartConversion.disabled = false;
-   }
+   buttonStartConversion.disabled = true;
 }
 
 
@@ -93,7 +110,10 @@ worker.addEventListener("message", message => {
    switch(message.data.result)
    {
       case 0:
-         downloadBinfile(message.data.binFileBlob);
+         for (let i = 0; i < message.data.binFileBlobArray.length; i++)
+         {
+            downloadBinfile(message.data.binFileBlobArray[i], i);
+         }
          break;
       case 1:
          alert("ERROR: HEX file is corrupt !!!");
@@ -108,13 +128,13 @@ worker.addEventListener("message", message => {
 });
 
 
-function downloadBinfile(binFileBlob)
+function downloadBinfile(binFileBlob, index)
 {   
    const link = document.createElement('a');
    link.style.display = 'none';
    const url = URL.createObjectURL(binFileBlob);
    link.href = url;
-   link.download = hexFile.name.replace('.hex', '.bin');
+   link.download = hexFile.name.replace('.hex', `${index}.bin`);
 
    document.body.appendChild(link); /* It needs to be added to the DOM so it can be clicked. */
    link.click();
