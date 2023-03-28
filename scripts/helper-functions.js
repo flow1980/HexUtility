@@ -1,3 +1,9 @@
+/* Error codes */
+const NO_ERROR                            = 0;        
+const ERROR_HEXFILE_CORRUPT               = 1;
+const ERROR_HEX2BIN_INVALID_ADDRESS_RANGE = 2;
+
+
 const hexFilePickerOpts = {
    types: [
       {
@@ -48,4 +54,4 @@ function setButtonProgressState(button, playState) {
 
 
 
-export { hexFilePickerOpts, binFilePickerOpts, setButtonProgressState };
+export { NO_ERROR, ERROR_HEXFILE_CORRUPT, ERROR_HEX2BIN_INVALID_ADDRESS_RANGE, hexFilePickerOpts, binFilePickerOpts, setButtonProgressState };

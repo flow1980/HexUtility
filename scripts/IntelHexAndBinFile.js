@@ -1,3 +1,6 @@
+import { NO_ERROR, ERROR_HEXFILE_CORRUPT, ERROR_HEX2BIN_INVALID_ADDRESS_RANGE } from "./helper-functions.js";
+
+
 /* Listen for messages from the main thread.
    If the message command is e.g. "Hex2Bin", call the function "Hex2Bin". */
 addEventListener("message", message => {
@@ -15,6 +18,7 @@ const hexFilePattern = /^:(\w{2})(\w{4})(\w{2})(\w*)(\w{2})/;
    \w*: Matches any word character zero or more times.
    () : Captures the matched subexpression and assigns it a zero-based ordinal number.
 */
+
 
 
 /*
@@ -113,13 +117,13 @@ function convertByteArrayToHexstring(byteArray)
  * --------------------------------------------------------------------
  * Checks if the start address of the address range(s) is less than or equal to the end address of the address range(s).
  *    @param   Address range(s) string
- *    @return  Result (0: valid, 2: the start address is not less than or equal to end address) AND
+ *    @return  Result (true: valid, false: the start address is not less than or equal to end address) AND
  *             array of address ranges
  * --------------------------------------------------------------------
  */
-function checkAddressRanges(addressRangesString)
+function areAddressRangesValid(addressRangesString)
 {
-   let result = 0;
+   let result = true;
    let matches;
    let startAddress = 0;
    let endAddress = 0;
@@ -147,7 +151,8 @@ function checkAddressRanges(addressRangesString)
    
       if(startAddress > endAddress)
       {
-         result = 2;
+         result = false;
+         addressRanges.length = 0; /* Empties/clears the array */
       }
       else
       {
@@ -171,7 +176,8 @@ function checkAddressRanges(addressRangesString)
  *             the bin file as content
  * --------------------------------------------------------------------
  */
-function Hex2Bin(hexFileContent, addressRanges) {
+function Hex2Bin(hexFileContent, addressRanges)
+{
    /*********************************************************************************/
    /*** Variables declarations                                                      */
    /*********************************************************************************/
@@ -197,13 +203,13 @@ function Hex2Bin(hexFileContent, addressRanges) {
 
    if (isRawHexFile(hexFileContent))
    {
-      for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (0 === result); i++)
+      for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (NO_ERROR === result); i++)
       {
          let lineAsBytesObject = convertHexStringToByteArray(hexFileLines[i]);
 
          if (false === lineAsBytesObject.result)
          {
-            result = 1;
+            result = ERROR_HEXFILE_CORRUPT;
          }
          else
          {
@@ -215,7 +221,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
    {
       if ("" === addressRanges)
       {
-         for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (0 === result); i++)
+         for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (NO_ERROR === result); i++)
          {
             /* Match the regular expression pattern against a text string. */
             matches = hexFilePattern.exec(hexFileLines[i]);
@@ -238,7 +244,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
 
                   if (false === lineAsBytesObject.result)
                   {
-                     result = 1;
+                     result = ERROR_HEXFILE_CORRUPT;
                   }
                   else
                   {
@@ -248,11 +254,11 @@ function Hex2Bin(hexFileContent, addressRanges) {
             }
             else
             {
-               result = 1;
+               result = ERROR_HEXFILE_CORRUPT;
             }
          }
 
-         if (0 === result)
+         if (NO_ERROR === result)
          {
             let byteArray = new Uint8Array(binFileContent);
             binFileBlob = new Blob([byteArray], { type: "application/octet-stream" });
@@ -261,14 +267,17 @@ function Hex2Bin(hexFileContent, addressRanges) {
       } /* if ("" === addressRanges) */
       else
       {
-         let resultAddressRangesCheck = checkAddressRanges(addressRanges);
-         result = resultAddressRangesCheck.result;
-
-         if (0 === result)
+         let resultAddressRangesCheck = areAddressRangesValid(addressRanges);
+         if (false === resultAddressRangesCheck.result)
          {
-            for (let j = 0; (j < resultAddressRangesCheck.addressRanges.length) && (0 === result); j++)
+            result = ERROR_HEX2BIN_INVALID_ADDRESS_RANGE;
+         }
+
+         if (NO_ERROR === result)
+         {
+            for (let j = 0; (j < resultAddressRangesCheck.addressRanges.length) && (NO_ERROR === result); j++)
             {
-               for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (0 === result); i++)
+               for (let i = 0; (i < (hexFileLines.length)) && (hexFileLines[i].length > 0) && (NO_ERROR === result); i++)
                {
                   /* Match the regular expression pattern against a text string. */
                   matches = hexFilePattern.exec(hexFileLines[i]);
@@ -319,7 +328,7 @@ function Hex2Bin(hexFileContent, addressRanges) {
          
                            if (false === lineAsBytesObject.result)
                            {
-                              result = 1;
+                              result = ERROR_HEXFILE_CORRUPT;
                            }
                            else
                            {
@@ -345,11 +354,11 @@ function Hex2Bin(hexFileContent, addressRanges) {
                   }
                   else
                   {
-                     result = 1;
+                     result = ERROR_HEXFILE_CORRUPT;
                   }
                }
 
-               if (0 === result)
+               if (NO_ERROR === result)
                {
                   let byteArray = new Uint8Array(binFileContent);
                   binFileBlob = new Blob([byteArray], { type: "application/octet-stream" });

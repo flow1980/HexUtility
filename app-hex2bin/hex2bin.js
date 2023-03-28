@@ -1,11 +1,11 @@
-import { hexFilePickerOpts, binFilePickerOpts, setButtonProgressState } from "../scripts/helper-functions.js";
+import { NO_ERROR, ERROR_HEXFILE_CORRUPT, ERROR_HEX2BIN_INVALID_ADDRESS_RANGE, hexFilePickerOpts, binFilePickerOpts, setButtonProgressState } from "../scripts/helper-functions.js";
 
 
 /* Create a new worker, giving it the code in "IntelHexAndBinFile.js" 
    As soon as the worker is created, the worker script is executed.
    The first thing the worker does is start listening for messages from the main script.
    It does this using addEventListener(), which is a global function in a worker. */
-const worker = new Worker('../scripts/IntelHexAndBinFile.js');
+const worker = new Worker("../scripts/IntelHexAndBinFile.js", { type: "module" });
 
 
 let hexFile;
@@ -109,17 +109,24 @@ function startHex2Bin()
 worker.addEventListener("message", message => {
    switch(message.data.result)
    {
-      case 0:
-         for (let i = 0; i < message.data.binFileBlobArray.length; i++)
+      case NO_ERROR:
+         if (1 === message.data.binFileBlobArray.length)
          {
-            downloadBinfile(message.data.binFileBlobArray[i], i);
+            downloadBinfile(message.data.binFileBlobArray[0]);
+         }
+         else
+         {
+            for (let i = 0; i < message.data.binFileBlobArray.length; i++)
+            {
+               downloadBinfile(message.data.binFileBlobArray[i], i);
+            }
          }
          break;
-      case 1:
+      case ERROR_HEXFILE_CORRUPT:
          alert("ERROR: HEX file is corrupt !!!");
          break;
-      case 2:
-         alert("For at least one address range, the start address is not less than the end address !!!");
+      case ERROR_HEX2BIN_INVALID_ADDRESS_RANGE:
+         alert("ERROR: For at least one address range, the end address is less than the start address !!!");
          break;
       deafult:
          break;
@@ -134,7 +141,14 @@ function downloadBinfile(binFileBlob, index)
    link.style.display = 'none';
    const url = URL.createObjectURL(binFileBlob);
    link.href = url;
-   link.download = hexFile.name.replace('.hex', `${index}.bin`);
+   if (undefined === index)
+   {
+      link.download = hexFile.name.replace('.hex', '.bin');
+   }
+   else
+   {
+      link.download = hexFile.name.replace('.hex', `${index}.bin`);
+   }
 
    document.body.appendChild(link); /* It needs to be added to the DOM so it can be clicked. */
    link.click();
