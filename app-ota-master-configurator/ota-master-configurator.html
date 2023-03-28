@@ -9,7 +9,10 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" >
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" >
     <link rel="stylesheet" href="../styles/style.css" >
-    <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
+    <!--link rel="stylesheet" href="../styles/spectre.css" -->
+    <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished--> 
+    <script src="../assets/jsoneditor.js"></script>
+    <script type="module" src="ota-master-configurator.js"></script> 
   </head>
   <body>
     <header>
@@ -45,6 +48,9 @@
       
       <p>Generates the configuration files (.lua files) for the OTA master (CarMediaLab's Connectivity Control Units (CCU) Flea).<br><br></p>
       
+      <div id="jsonForm">
+
+      </div>
       <!--button>Change user</button-->
     </main>
 
