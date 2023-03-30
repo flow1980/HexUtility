@@ -11,8 +11,13 @@
     <link rel="stylesheet" href="../styles/style.css" >
     <!--link rel="stylesheet" href="../styles/spectre.css" -->
     <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished--> 
-    <script src="../assets/jsoneditor.js"></script>
-    <script type="module" src="ota-master-configurator.js"></script> 
+    <!--script src="../assets/jsoneditor/jsoneditor.js"--></script>
+    <script src="../assets/jsonform/deps/jquery.min.js"></script>
+    <script src="../assets/jsonform/deps/underscore.js"></script>
+    <script src="../assets/jsonform/deps/opt/jsv.js"></script>
+    <script src="../assets/jsonform/lib/jsonform.js"></script>
+    <script type="module" src="update-manifest-jsonform.js"></script>
+    <script type="module" src="ota-master-configurator.js"></script>
   </head>
   <body>
     <header>
@@ -48,8 +53,8 @@
       
       <p>Generates the configuration files (.lua files) for the OTA master (CarMediaLab's Connectivity Control Units (CCU) Flea).<br><br></p>
       
-      <div id="jsonForm">
-
+      <div>
+         <form id="jsonForm"></form>
       </div>
       <!--button>Change user</button-->
     </main>
