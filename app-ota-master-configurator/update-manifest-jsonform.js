@@ -8,23 +8,22 @@ let updateManifestJsonform = {
          title: "Update Manifest",
          properties: 
          {
-            manifestVersion: { type: "string", title: "Manifest version", required: true },
-            executionOrder: { type: "string", title: "Execution order", required: true },
-            dependencies: { type: "string", title: "Dependencies", required: true },
-            prePostActionsFile: { type: "string", title: "Pre Post Actions .lua file", required: true },
+            manifestVersion: { type: "string", title: "Manifest version:", required: true },
+            executionOrder: { type: "string", title: "Execution order:", required: true },
+            dependencies: { type: "string", title: "Dependencies:", required: true },
+            prePostActionsFile: { type: "string", title: "Pre Post Actions .lua file:", required: true },
             ecu:
             {
                type: "array",
-               notitle: true,
                items: 
                {
                   type: "object",
                   title: "ECU",
                   properties: {
-                     ecuName: { type: "string", title: "ECU name", required: true },
-                     ecuUpdateScript: { type: "string", title: "ECU update script name (.lua file)", placeholder: "e.g.: cfg_ESP_OtaEnh_FLA.lua", required: true },
-                     ecuPrePostAct: { type: "string", title: "ECU Pre Post actions file name (.lua file) [OPTIONAL]", required: false },
-                     updateControlTable: { type: "string", title: "ECU name", placeholder: "e.g.: ESP_Enh", required: true }
+                     ecuName: { type: "string", title: "ECU name:", required: true },
+                     ecuUpdateScript: { type: "string", title: "ECU update script name (.lua file):", placeholder: "e.g.: cfg_ESP_OtaEnh_FLA.lua", required: true },
+                     ecuPrePostAct: { type: "string", title: "ECU Pre Post actions file name (.lua file) [OPTIONAL]:", required: false },
+                     updateControlTable: { type: "string", title: "Filename of the update control table (.bin file):", placeholder: "e.g.: ESP_updateControlTable.bin", required: true }
                   }
                }
             }
@@ -38,7 +37,8 @@ let updateManifestJsonform = {
        
       {
          key: "updateManifest.manifestVersion",
-         placeholder: "e.g.: 3.0.0.0"
+         placeholder: "e.g.: 3.0.0.0",
+         fieldHtmlClass: "jsonform-input-size",
       },
       {
          key: "updateManifest.executionOrder",
@@ -53,10 +53,11 @@ let updateManifestJsonform = {
          placeholder: "e.g.: cfg_Vehicle_PrePostActions.lua"
       },
       {
-         type: "array",
+         type: "tabarray",
          items:
          {
-            type: "section",
+            type: "fieldset",            
+            legend: "ECU{{idx}}",
             items:
             [
                { key: "updateManifest.ecu[].ecuName", placeholder: "e.g.: ESP_Enh" },
@@ -68,15 +69,40 @@ let updateManifestJsonform = {
       },
 
       {
-         "type": "submit",
-         "title": "Generate the update manifest file"
-      }
-
+         type: "submit",
+         title: "Generate the update manifest file"
+      },
    ],
 
-   onSubmitValid: function (values) {
+   params:
+   {
+      fieldHtmlClass: "jsonform-input-size"
+   },
+
+   displayErrors: function (errors, formElt)
+   {
+      for (var i=0; i<errors.length; i++) {
+        errors[i].message = "Please fill out this field!";
+      }
+      $(formElt).jsonFormErrors(errors, formObject);
+   },
+
+   onSubmit: function (errors, values)
+   {
+      if (errors)
+      {
+        alert('Check the form for invalid values!');
+        return;
+      }
+      // "values" follows the schema, yeepee!
+      console.log(values);
+   },
+    
+    onSubmitValid: function (values) {
       /* Callback function called upon form submission when values are valid */
+      console.log(values);
    }
+
 };
 
 
