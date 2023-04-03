@@ -11,8 +11,9 @@ const worker = new Worker("../scripts/IntelHexAndBinFile.js", { type: "module" }
 let hexFile;
 let isAddressRangeValid = true;
 
-const inputHexfile = document.getElementById("hex2bin-inputHexfile");
+const inputHexfile = document.querySelector("#hex2bin-inputHexfile input[type=file]");
 inputHexfile.addEventListener("change", selectHexfile);
+const fileName = document.querySelector("#hex2bin-inputHexfile .file-name");
 
 /*
  * --------------------------------------------------------------------
@@ -23,6 +24,11 @@ inputHexfile.addEventListener("change", selectHexfile);
  */
 function selectHexfile()
 {
+   if (inputHexfile.files.length > 0)
+   {
+      fileName.textContent = inputHexfile.files[0].name;
+   }
+
    hexFile = this.files[0];
    
    if ((hexFile) && (true === isAddressRangeValid))
@@ -64,7 +70,7 @@ function resetGUI()
    setButtonProgressState(buttonStartConversion, "paused");
    
    inputHexfile.disabled = false;
-   inputHexfile.value = "";
+   fileName.textContent = "";
 
    addressRanges.disabled = false;
    addressRanges.value = "";

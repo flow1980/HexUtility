@@ -1,55 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1" >
-    <meta name="author" content="Florian Lengert" >
-    <meta name="description" content="Converts a Motorola-S-Record file (.s19 or .srec file) to an Intel-HEX file (.hex file)." >
-    <title>Hex Utility Suite by F. Lengert</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" >
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" >
-    <link rel="stylesheet" href="../styles/style.css" >
-    <script src="../scripts/main.js" defer></script>  <!--defer: load the JavaScript after parsing the HTML is finished-->   
-  </head>
-  <body>
-    <header>
-    </header>
-    
-    <!-- Use any element to open the sidenav -->
-    <span id="open-sidenav" onclick="openNav()">&#9776; Menu</span>
 
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      
-      <p class="nav-headline no-margin"><b>HEX Tools</b></p>
-      <a href="../app-hex2bin/hex2bin.html">Hex2Bin Converter</a>
-      <a href="../app-hex-format-converter/hex-format-converter.html">HEX Format Converter</a>
-      <a href="../app-checksum-calculator/checksum-calculator.html">Checksum Calculator</a>
-      <a href="../app-remove-ecc/remove-ecc.html">Remove ECC</a>
-      <a href="../app-remove-flash-option-bytes/remove-flash-option-bytes.html">Remove 'Flash Option Bytes'</a>
-      <a href="../app-file-compression/file-compression.html">File Compression</a>
-      <a href="../app-file-decompression/file-decompression.html">File Decompression</a>
-      
-      <p class="nav-headline no-margin"><b>S-RECORD Tools</b></p>
-      <a href="../app-srecord2bin/srecord2bin.html">Srecord2Bin Converter</a>
-      <a href="../app-hex2srecord/hex2srecord.html">Hex2Srecord Converter</a>
-      <p class="no-margin">Srecord2Hex Converter</p>
-      
-      <p class="nav-headline no-margin"><b>Other Tools</b></p>
-      <a href="../app-files-merger/files-merger.html">Files Merger</a>
-      <a href="../app-ota-master-configurator/ota-master-configurator.html">OTA Master Configurator</a>
-    </div>   <!-- sidenav -->
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+   <meta name="author" content="Florian Lengert">
+   <meta name="description" content="Converts a Motorola-S-Record file (.s19 or .srec file) to an Intel-HEX file (.hex file).">
+   <title>Hex Utility Suite by F. Lengert</title>
+   <link rel="stylesheet" href="../css/main.css">
+   <link rel="stylesheet" href="../css/my-styles.css">
+</head>
 
-    <main>
-      <h2 class="no-margin">Srecord2Hex Converter</h2>
-      
-      <p>Converts a Motorola-S-Record file (.s19 or .srec file) to an Intel-HEX file (.hex file).<br><br></p>
-      
-      <!--button>Change user</button-->
-    </main>
+<body>
+   <header>
+   </header>
 
-    <!--footer>
-      <p>Florian Lengert, 2023</p>
-    </footer-->
-  </body>
+   <div class="dropdown is-hoverable block">
+      <div class="dropdown-trigger">
+         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <span>&#9776; Menu</span>
+         </button>
+      </div>
+      <div id="dropdown-menu" class="dropdown-menu" role="menu">
+         <div class="dropdown-content">
+            <div class="dropdown-item"><b>HEX Tools</b></div>
+            <a class="dropdown-item" href="../app-hex2bin/hex2bin.html">Hex2Bin Converter</a>
+            <a class="dropdown-item" href="../app-hex-format-converter/hex-format-converter.html">HEX Format Converter</a>
+            <a class="dropdown-item" href="../app-checksum-calculator/checksum-calculator.html">Checksum Calculator</a>
+            <a class="dropdown-item" href="../app-remove-ecc/remove-ecc.html">Remove ECC</a>
+            <a class="dropdown-item" href="../app-remove-flash-option-bytes/remove-flash-option-bytes.html">Remove 'Flash Option Bytes'</a>
+            <a class="dropdown-item" href="../app-file-compression/file-compression.html">File Compression</a>
+            <a class="dropdown-item" href="../app-file-decompression/file-decompression.html">File Decompression</a>
+            <hr class="dropdown-divider">
+            <div class="dropdown-item"><b>S-RECORD Tools</b></div>
+            <a class="dropdown-item" href="../app-srecord2bin/srecord2bin.html">Srecord2Bin Converter</a>
+            <a class="dropdown-item" href="../app-hex2srecord/hex2srecord.html">Hex2Srecord Converter</a>
+            <a class="dropdown-item is-active">Srecord2Hex Converter</a>
+            <hr class="dropdown-divider">
+            <div class="dropdown-item"><b>Other Tools</b></div>
+            <a class="dropdown-item" href="../app-files-merger/files-merger.html">Files Merger</a>
+            <a class="dropdown-item" href="../app-ota-master-configurator/ota-master-configurator.html">OTA Master Configurator</a>
+         </div>
+      </div>
+   </div>
+
+   <main class="container">
+
+      <div class="box content is-small">
+         <h3>Srecord2Hex Converter</h3>
+         <p>Converts a Motorola-S-Record file (.s19 or .srec file) to an Intel-HEX file (.hex file).</p>
+      </div>
+
+   </main>
+</body>
+
 </html>

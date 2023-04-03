@@ -1,5 +1,4 @@
-const element = document.getElementById("jsonForm");
-const editor = new JSONEditor(element, {
+let updateManifestJsoneditor = {
    theme: "spectre",
    iconlib: "spectre",
    compact: true,
@@ -129,4 +128,7 @@ const editor = new JSONEditor(element, {
          }
       }
    }
-});
+};
+
+
+export { updateManifestJsoneditor };

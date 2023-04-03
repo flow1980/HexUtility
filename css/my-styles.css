@@ -1,0 +1,74 @@
+/*  || Type selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+main {
+   width: max-content;
+}
+
+
+/* || Class selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+.startButton {
+   width: 100%;
+   position: relative;
+}
+
+.buttonProgress {
+   position: absolute;
+   height: 100%;
+   width: 0%;
+   top: 0;
+   left: 0;
+   background: rgba(0, 128, 0, 0.5);
+   animation-duration: 1.5s;
+   animation-iteration-count: infinite;
+   animation-name: loader;
+   animation-play-state: paused;
+   animation-timing-function: linear;
+}
+
+.buttonText {
+   position: relative;
+}
+
+
+/* || ID selectors */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+ #hex2bin-addressRanges:invalid {
+    border: 2px solid red;
+ }
+ 
+ #hex2bin-addressRangesSyntax, #hex2bin-addressRangesExample {
+   font-family: 'Courier New', Courier, monospace;
+   color: rgba(255, 0, 0, 0.712); 
+ }
+ 
+ #hex2bin-startConversion {
+   width: 100%;
+ }
+ 
+ 
+ /* || Pseudo-class selectors */
+ /*---------------------------------------------------------------------------------------------------------------------
+ */
+
+ 
+ /* Handle basic element styling - media queries, etc. */
+/*---------------------------------------------------------------------------------------------------------------------
+*/
+
+@keyframes loader {
+
+   0% {
+      width: 0;
+   }
+
+   100% {
+      width: 100%;
+   }
+}

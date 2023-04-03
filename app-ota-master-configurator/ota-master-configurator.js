@@ -1,4 +1,4 @@
-import { updateManifestJsonform } from "./update-manifest-jsonform.js";
+import { updateManifestJsoneditor } from "./update-manifest-jsoneditor.js";
 
-
-$('#jsonForm').jsonForm(updateManifestJsonform);
+const element = document.getElementById("json-editor");
+const editor = new JSONEditor(element, updateManifestJsoneditor);
