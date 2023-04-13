@@ -54,9 +54,97 @@
          <p>Generates the configuration files (.lua files) for the OTA master (CarMediaLab's Connectivity Control Units (CCU) Flea).</p>
       </div>
 
-      <div>
-         <form id="json-editor"></form>
+      <div class="box">
+         <label class="label">Tool Tips</label>
+         <p class="help is-small">
+            An OTA master configuration consists of at least 2 files:  
+                <u>One</u> <em>Update manifest</em> file and 
+                <u>at least one</u> <em>ECU update script</em> file.<br>
+                The <em>Vehicle Pre Post Actions</em> file is optional.<br>
+                <b>You don't have to fill out all 3 tabs. 
+                You just have to fill out the tabs for the files you want to generate!</b><br>
+                If you want to generate multiple ECU update script files, you have to do it one by one in the 'ECU update script' tab!
+         </p>
       </div>
+
+      <!--div>
+         <form id="json-editor"></form>
+      </div-->
+
+      <div class="tabs is-small is-boxed">
+         <ul>
+            <li class="is-active" data-tab="1"><a>Update manifest</a></li>
+            <li data-tab="2"><a>ECU update script</a></li>
+            <li data-tab="3"><a>Vehicle Pre Post Actions</a></li>
+          </ul>
+      </div>
+
+      <div class="tabs-content">
+         <form class="tab-content is-active" data-content="1">
+            <div class="field is-horizontal">
+               <div class="field-label is-small">
+                  <label class="label">Manifest version:</label>
+               </div>
+               <div class="field-body">
+                  <div class="field">
+                     <div class="control">
+                        <input id="otaUpdateManifest-manifestVersion" class="input is-small" type="text" title="e.g.:  3.0.0.0">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="field is-horizontal">
+               <div class="field-label is-small">
+                  <label class="label">Execution order:</label>
+               </div>
+               <div class="field-body">
+                  <div class="field">
+                     <div class="control">
+                        <input id="otaUpdateManifest-executionOrder" class="input is-small" type="text" title="e.g.:  ESP, SCU">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="field is-horizontal">
+               <div class="field-label is-small">
+                  <label class="label">Dependencies:</label>
+               </div>
+               <div class="field-body">
+                  <div class="field">
+                     <div class="control">
+                        <input id="otaUpdateManifest-dependencies" class="input is-small" type="text" title="e.g.:  ESP, SCU">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="field is-horizontal">
+               <div class="field-label is-small">
+                  <label class="label">Pre Post Actions .lua file:</label>
+               </div>
+               <div class="field-body">
+                  <div class="field">
+                     <div class="control">
+                        <input id="otaUpdateManifest-prePostActions" class="input is-small" type="text" title="e.g. :  cfg_Vehicle_PrePostActions.lua">
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="ecu-tabs is-small is-boxed">
+               <ul>
+                  <li class="is-active" data-tab="1"><a>ECU</a></li>
+                </ul>
+            </div>
+         </form>
+
+         <form class="tab-content" data-content="2">
+            <label class="label is-small">ECU update script configurator</label>
+         </form>
+
+         <form class="tab-content" data-content="3">
+            <label class="label is-small">Still under discussion/development !!!</label>
+         </form>
+       </div>
 
    </main>
 </body>

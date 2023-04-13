@@ -44,5 +44,11 @@ $link-hover-border: $grey-dark;
 // 4. Import the rest of Bulma
 @import "../node_modules/bulma/bulma";
 
+.tab-content {
+   display: none;
 
+   &.is-active {
+     display: block;
+   }
+ }
 
