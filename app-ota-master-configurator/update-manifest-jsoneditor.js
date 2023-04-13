@@ -6,7 +6,7 @@ let updateManifestJsoneditor = {
    disable_array_delete_last_row: true,
    disable_array_reorder: true,
    disable_collapse: true,
-   //disable_edit_json: true,
+   disable_edit_json: true,
    disable_properties: true,
    prompt_before_delete: false,
    schema: {

@@ -32,5 +32,8 @@
     "css-watch": "npm run css-build -- --watch",
     "deploy": "npm run css-deploy && npm run js-build",
     "start": "npm-run-all --parallel css-watch"
+  },
+  "dependencies": {
+    "@json-editor/json-editor": "^2.9.1"
   }
 }
