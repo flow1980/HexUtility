@@ -1,5 +1,5 @@
 let updateManifestJsoneditor = {
-   theme: "spectre",
+   theme: "bulma",
    iconlib: "spectre",
    compact: true,
    disable_array_delete_all_rows: true,
