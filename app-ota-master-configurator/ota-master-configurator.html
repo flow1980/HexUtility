@@ -9,7 +9,7 @@
    <title>Hex Utility Suite by F. Lengert</title>
    <link rel="stylesheet" href="../css/main.css">
    <link rel="stylesheet" href="../css/my-styles.css">
-   <script src="../assets/jsoneditor/jsoneditor.js"></script>
+   <script src="../node_modules/@json-editor/json-editor/dist/jsoneditor.js"></script>
    <script type="module" src="update-manifest-jsoneditor.js"></script>
    <script type="module" src="ota-master-configurator.js"></script>
 </head>
@@ -67,9 +67,8 @@
          </p>
       </div>
 
-      <!--div>
-         <form id="json-editor"></form>
-      </div-->
+      <div>
+      </div>
 
       <div class="tabs is-small is-boxed">
          <ul>
@@ -80,8 +79,8 @@
       </div>
 
       <div class="tabs-content">
-         <form class="tab-content is-active" data-content="1">
-            <div class="field is-horizontal">
+         <form id="json-editor" class="tab-content is-active" data-content="1"></form>
+            <!--div class="field is-horizontal">
                <div class="field-label is-small">
                   <label class="label">Manifest version:</label>
                </div>
@@ -129,13 +128,7 @@
                   </div>
                </div>
             </div>
-
-            <div class="ecu-tabs is-small is-boxed">
-               <ul>
-                  <li class="is-active" data-tab="1"><a>ECU</a></li>
-                </ul>
-            </div>
-         </form>
+         </form-->
 
          <form class="tab-content" data-content="2">
             <label class="label is-small">ECU update script configurator</label>
