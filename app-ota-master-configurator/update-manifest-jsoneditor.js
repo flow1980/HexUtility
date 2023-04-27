@@ -10,7 +10,7 @@ let updateManifestJsoneditor = {
    disable_properties: true,
    prompt_before_delete: false,
    schema: {
-      title: "Update manifest configurator",
+      title: " ",
       $ref: "#/definitions/updateManifest",
       definitions: {
          updateManifest: {
@@ -29,8 +29,13 @@ let updateManifestJsoneditor = {
                   title: "Manifest version",
                   type: "string",
                   "options": {
+//                     "input_width": "300px",
                      "inputAttributes": {
                         "placeholder":  "e.g.: 3.0.0.0",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
@@ -41,6 +46,10 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: ESP, SCU",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
@@ -51,9 +60,13 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: ESP, SCU",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
-                  required: true
+               required: true
                },
                prePostActionsFile: {
                   title: "Pre Post Actions .lua file",
@@ -61,13 +74,17 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: cfg_Vehicle_PrePostActions.lua",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
                },
                ecu: {
                   type: "array",
-                  title: "ECU",
+                  title: " ",
                   format: "tabs",
                   uniqueItems: true,
                   items: {
@@ -80,7 +97,7 @@ let updateManifestJsoneditor = {
          },
          ecu: {
             type: "object",
-            id: "ecu",
+//            id: "ecu",
             // The object will start with only these properties
             defaultProperties: [
                "ecuName",
@@ -95,6 +112,10 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: ESP_Enh",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
@@ -105,13 +126,25 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: cfg_ESP_OtaEnh_FLA.lua",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
                },
                ecuPrePostAct: {
                   title: "ECU Pre Post actions file name (.lua file) [OPTIONAL]",
-                  type: "string"
+                  type: "string",
+                  "options": {
+                     "inputAttributes": {
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
+                     }
+                  }
                },
                updateControlTable: {
                   title: "Filename of the update control table (.bin file)",
@@ -119,6 +152,10 @@ let updateManifestJsoneditor = {
                   "options": {
                      "inputAttributes": {
                         "placeholder":  "e.g.: ESP_updateControlTable.bin",
+                        "class": "input is-small",
+                     },
+                     "containerAttributes": {
+                        "class": "container label is-small",
                      }
                   },
                   required: true
