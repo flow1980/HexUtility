@@ -20532,7 +20532,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     value: function getFormInputField(type) {
       var el = _get(_getPrototypeOf(bulmaTheme.prototype), "getFormInputField", this).call(this, type);
       if (!['checkbox', 'radio'].includes(type)) {
-        el.classList.add('form-input');
+        el.classList.add('input', 'is-small');
       }
       return el;
     }
@@ -20579,7 +20579,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getFormControl",
     value: function getFormControl(label, input, description, infoText) {
       var group = document.createElement('div');
-      group.classList.add('form-group');
+      group.classList.add('control');
       if (label && (input.type === 'checkbox' || input.type === 'radio')) {
         group.classList.add(input.type);
         if (infoText) label.appendChild(infoText);
@@ -20587,7 +20587,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
         group.appendChild(label);
       } else {
         if (label) {
-          label.classList.add('form-label');
+          label.classList.add('label', 'is-small');
           group.appendChild(label);
           if (infoText) label.appendChild(infoText);
         }
@@ -20666,8 +20666,8 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     value: function getTabHolder(propertyName) {
       var pName = typeof propertyName === 'undefined' ? '' : propertyName;
       var el = document.createElement('div');
-      el.classList.add('columns');
-      el.innerHTML = "<div class=\"column col-2\"></div><div class=\"column col-10 content\" id=\"".concat(pName, "\"></div>");
+      /* el.classList.add('tabs', 'is-small', 'is-boxed') */
+      el.innerHTML = "<div class='is-small is-boxed'></div><div class='is-small' id='".concat(pName, "'></div>");
       return el;
     }
 
@@ -20686,7 +20686,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getTab",
     value: function getTab(span, tabId) {
       var el = document.createElement('a');
-      el.classList.add('btn', 'btn-secondary', 'btn-block');
+      el.classList.add('is-small');
       el.setAttribute('href', "#".concat(tabId));
       el.appendChild(span);
       return el;
@@ -20710,13 +20710,13 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
   }, {
     key: "markTabActive",
     value: function markTabActive(row) {
-      row.tab.classList.add('active');
+      row.tab.classList.add('is-active');
       if (typeof row.rowPane !== 'undefined') row.rowPane.style.display = '';else row.container.style.display = '';
     }
   }, {
     key: "markTabInactive",
     value: function markTabInactive(row) {
-      row.tab.classList.remove('active');
+      row.tab.classList.remove('is-active');
       if (typeof row.rowPane !== 'undefined') row.rowPane.style.display = 'none';else row.container.style.display = 'none';
     }
   }, {
