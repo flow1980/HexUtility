@@ -14444,7 +14444,7 @@ __webpack_require__.r(__webpack_exports__);
   ".je-range-control": "text-align:center",
   ".je-indented-panel": "padding-left:10px;margin-left:10px;border-left:1px%20solid%20%23ccc",
   ".je-indented-panel--top": "padding-left:10px;margin-left:10px",
-  ".je-tabholder": "float:left;width:30px",
+  ".je-tabholder": "float:left;width:0px",
   ".je-tabholder .content": "margin-left:0px",
   ".je-tabholder--top": "margin-left:10px",
   ".je-tabholder--clear": "clear:both",
