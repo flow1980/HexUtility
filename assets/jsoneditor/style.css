@@ -121,7 +121,7 @@
   border: 1px solid #ccc;
   border-width: 1px 0 1px 1px;
   text-align: center;
-  line-height: 30px;
+  /* line-height: 30px; */
   border-radius: 5px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;

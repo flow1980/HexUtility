@@ -7,8 +7,8 @@ const options = {
   disable_theme_rules: false, /* Disable creation of Inline Style Rules */
   label_bold: false, /* Element labels bold */
   align_bottom: false, /* Align elements to bottom of flex container */
-  object_indent: false, /* Indent nested object elements */
-  object_border: false, /* Add border around object elements */
+  object_indent: true, /* Indent nested object elements */
+  object_border: true, /* Add border around object elements */
   table_border: false, /* Add border to array "table" row and cells */
   table_zebrastyle: false, /* Add "zebra style" to array "table" rows */
   input_size: 'small' /* Size of input and select elements. "small", "normal", "large" */
@@ -48,16 +48,12 @@ export class bulmaTheme extends AbstractTheme {
   /* Used for "type: object" or "type: array" (except if "format: tabs-top") */
   getIndentedPanel () {
     const el = document.createElement('div')
-    el.classList.add('je-panel')
-    if (this.options.object_border) el.classList.add('je-border')
     return el
   }
 
   /* Used for "type: array" with "format: tabs-top" */
   getTopIndentedPanel () {
     const el = document.createElement('div')
-    el.classList.add('je-panel-top')
-    if (this.options.object_border) el.classList.add('je-border')
     return el
   }
 
@@ -70,7 +66,6 @@ export class bulmaTheme extends AbstractTheme {
   /* Button holder for the buttons */
   getButtonHolder () {
     const el = super.getButtonHolder()
-    el.classList.add('btn-group')
     return el
   }
 

@@ -14448,7 +14448,7 @@ __webpack_require__.r(__webpack_exports__);
   ".je-tabholder .content": "margin-left:0px",
   ".je-tabholder--top": "margin-left:10px",
   ".je-tabholder--clear": "clear:both",
-  ".je-tab": "border:1px%20solid%20%23ccc;border-width:1px%200%201px%201px;text-align:center;line-height:30px;border-radius:5px;border-bottom-right-radius:0;border-top-right-radius:0;font-weight:bold;cursor:pointer",
+  ".je-tab": "border:1px%20solid%20%23ccc;border-width:1px%200%201px%201px;text-align:center;border-radius:5px;border-bottom-right-radius:0;border-top-right-radius:0;font-weight:bold;cursor:pointer",
   ".je-tab--top": "float:left;border:1px%20solid%20%23ccc;border-width:1px%201px%200px%201px;text-align:center;line-height:30px;border-radius:5px;padding-left:5px;padding-right:5px;border-bottom-right-radius:0;border-bottom-left-radius:0;font-weight:bold;cursor:pointer",
   ".je-block-link": "display:block",
   ".je-media": "width:100%25"
@@ -20327,9 +20327,9 @@ var options = {
   /* Element labels bold */
   align_bottom: false,
   /* Align elements to bottom of flex container */
-  object_indent: false,
+  object_indent: true,
   /* Indent nested object elements */
-  object_border: false,
+  object_border: true,
   /* Add border around object elements */
   table_border: false,
   /* Add border to array "table" row and cells */
@@ -20382,8 +20382,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getIndentedPanel",
     value: function getIndentedPanel() {
       var el = document.createElement('div');
-      el.classList.add('je-panel');
-      if (this.options.object_border) el.classList.add('je-border');
       return el;
     }
 
@@ -20392,8 +20390,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getTopIndentedPanel",
     value: function getTopIndentedPanel() {
       var el = document.createElement('div');
-      el.classList.add('je-panel-top');
-      if (this.options.object_border) el.classList.add('je-border');
       return el;
     }
 
@@ -20410,7 +20406,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getButtonHolder",
     value: function getButtonHolder() {
       var el = _get(_getPrototypeOf(bulmaTheme.prototype), "getButtonHolder", this).call(this);
-      el.classList.add('btn-group');
       return el;
     }
   }, {
