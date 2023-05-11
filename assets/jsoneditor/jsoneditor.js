@@ -2191,7 +2191,7 @@ var ArrayEditor = /*#__PURE__*/function (_AbstractEditor) {
     value: function _createDeleteButton(i, holder) {
       var _this8 = this;
       var button = this.getButton(this.getItemTitle(), 'delete', 'button_delete_row_title', [this.getItemTitle()]);
-      button.classList.add('delete', 'json-editor-btntype-delete');
+      button.classList.add('json-editor-btntype-delete');
       button.setAttribute('data-i', i);
       button.addEventListener('click', function (e) {
         e.preventDefault();
@@ -20430,7 +20430,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     key: "getButton",
     value: function getButton(text, icon, title) {
       var el = _get(_getPrototypeOf(bulmaTheme.prototype), "getButton", this).call(this, text, icon, title);
-      el.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-2', 'my-1');
+      el.classList.add('button', 'is-small');
       return el;
     }
   }, {
@@ -20661,8 +20661,9 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     value: function getTabHolder(propertyName) {
       var pName = typeof propertyName === 'undefined' ? '' : propertyName;
       var el = document.createElement('div');
+      el.style.display = 'inline-flex';
       /* el.classList.add('tabs', 'is-small', 'is-boxed') */
-      el.innerHTML = "<div class='is-small is-boxed'></div><div class='is-small' id='".concat(pName, "'></div>");
+      el.innerHTML = "<div class='is-small is-boxed'></div><div class='is-small' id='".concat(pName, "' style='width: 100%'></div>");
       return el;
     }
 
@@ -20673,6 +20674,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
       var pName = typeof propertyName === 'undefined' ? '' : propertyName;
       var el = document.createElement('div');
       el.innerHTML = "<ul class=\"tab\"></ul><div class=\"content\" id=\"".concat(pName, "\"></div>");
+      el.classList.add('je-indented-panel');
       return el;
     }
 
@@ -20684,6 +20686,7 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
       el.classList.add('is-small');
       el.setAttribute('href', "#".concat(tabId));
       el.appendChild(span);
+      el.style.display = 'block';
       return el;
     }
 

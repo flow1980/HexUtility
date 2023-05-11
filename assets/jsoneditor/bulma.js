@@ -89,7 +89,7 @@ export class bulmaTheme extends AbstractTheme {
 
   getButton (text, icon, title) {
     const el = super.getButton(text, icon, title)
-    el.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-2', 'my-1')
+    el.classList.add('button', 'is-small')
     return el
   }
 
@@ -300,8 +300,9 @@ export class bulmaTheme extends AbstractTheme {
   getTabHolder (propertyName) {
     const pName = typeof propertyName === 'undefined' ? '' : propertyName
     const el = document.createElement('div')
+    el.style.display = 'inline-flex'
     /* el.classList.add('tabs', 'is-small', 'is-boxed') */
-    el.innerHTML = `<div class='is-small is-boxed'></div><div class='is-small' id='${pName}'></div>`
+    el.innerHTML = `<div class='is-small is-boxed'></div><div class='is-small' id='${pName}' style='width: 100%'></div>`
     return el
   }
 
@@ -319,6 +320,7 @@ export class bulmaTheme extends AbstractTheme {
     el.classList.add('is-small')
     el.setAttribute('href', `#${tabId}`)
     el.appendChild(span)
+    el.style.display = 'block'
     return el
   }
 

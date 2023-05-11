@@ -1,8 +1,9 @@
 let updateManifestJsoneditor = {
    theme: "bulma",
-   iconlib: "spectre",
+   /* iconlib: "spectre", */
    /* compact: true, */
    /* array_controls_top: true, */
+//   disable_array_delete: true,
    disable_array_delete_all_rows: true,
    disable_array_delete_last_row: true,
    disable_array_reorder: true,
@@ -63,9 +64,10 @@ let updateManifestJsoneditor = {
             "minItems": 1,
             items:
             {
-               title: "Add ECU",
-               "headerTemplate": "{{ i1 }}_{{ self.ecuName }} ",
+               title: "ECU",
+               "headerTemplate": "ECU{{ i1 }}-{{ self.ecuName }} ",
                type: "object",
+               "hide_delete_buttons": true,
                properties: {
                   ecuName: {
                      title: "ECU name",
