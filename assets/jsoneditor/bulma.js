@@ -300,7 +300,6 @@ export class bulmaTheme extends AbstractTheme {
   getTabHolder (propertyName) {
     const pName = typeof propertyName === 'undefined' ? '' : propertyName
     const el = document.createElement('div')
-    el.style.display = 'inline-flex'
     /* el.classList.add('tabs', 'is-small', 'is-boxed') */
     el.innerHTML = `<div class='is-small is-boxed'></div><div class='is-small' id='${pName}' style='width: 100%'></div>`
     return el
@@ -320,7 +319,6 @@ export class bulmaTheme extends AbstractTheme {
     el.classList.add('is-small')
     el.setAttribute('href', `#${tabId}`)
     el.appendChild(span)
-    el.style.display = 'block'
     return el
   }
 

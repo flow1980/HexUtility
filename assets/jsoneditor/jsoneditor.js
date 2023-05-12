@@ -20661,7 +20661,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
     value: function getTabHolder(propertyName) {
       var pName = typeof propertyName === 'undefined' ? '' : propertyName;
       var el = document.createElement('div');
-      el.style.display = 'inline-flex';
       /* el.classList.add('tabs', 'is-small', 'is-boxed') */
       el.innerHTML = "<div class='is-small is-boxed'></div><div class='is-small' id='".concat(pName, "' style='width: 100%'></div>");
       return el;
@@ -20674,7 +20673,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
       var pName = typeof propertyName === 'undefined' ? '' : propertyName;
       var el = document.createElement('div');
       el.innerHTML = "<ul class=\"tab\"></ul><div class=\"content\" id=\"".concat(pName, "\"></div>");
-      el.classList.add('je-indented-panel');
       return el;
     }
 
@@ -20686,7 +20684,6 @@ var bulmaTheme = /*#__PURE__*/function (_AbstractTheme) {
       el.classList.add('is-small');
       el.setAttribute('href', "#".concat(tabId));
       el.appendChild(span);
-      el.style.display = 'block';
       return el;
     }
 
